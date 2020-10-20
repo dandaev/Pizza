@@ -1,9 +1,13 @@
 package whz.pti.eva.praktikum_02.domain;
 
 import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.Id;
 
 @Entity
 public class Grade {
+	@Id @GeneratedValue
+	private Integer Id;
 	private String lecture;
 	private String grade;
 	
