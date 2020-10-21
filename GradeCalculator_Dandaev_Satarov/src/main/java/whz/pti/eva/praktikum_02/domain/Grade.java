@@ -11,8 +11,9 @@ public class Grade {
 	private String lecture;
 	private String grade;
 	
+	public Grade() {}
+
 	public Grade(String lecture, String grade) {
-		super();
 		this.lecture = lecture;
 		this.grade = grade;
 	}
