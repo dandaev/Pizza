@@ -46,7 +46,7 @@ public class GradeServiceImpl implements GradeService {
 	@Override
 	public double calculcateAverage() {
 		List<Grade> grades = gradeRepository.findAll();
-		if(grades.isEmpty()) {
+		if (grades.isEmpty()) {
 			return 0;
 		}
 		noteSum = Double.MIN_VALUE;

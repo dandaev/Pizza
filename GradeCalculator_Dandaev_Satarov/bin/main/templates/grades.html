@@ -1,0 +1,15 @@
+<!DOCTYPE html>
+<html lang="de" xmlns:th="http://www.thymeleaf.org">
+<head th:fragment="head">
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width,
+	initial-scale=1, shrink-to-fit=no">
+	<title>EvaSpringChatApp</title>
+</head>
+<body>
+	<tr th:each="grade: ${grades}">
+	    <td th:text="${grade.lecture}" />
+	    <td th:text="${grade.grade}" />
+	</tr>
+</body>
+</html>
