@@ -29,7 +29,8 @@ public class GradeController {
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
 	public String addGrade(@RequestParam String lecture,@RequestParam String grade) {
-		gradeService.addGrade(lecture, grade);
+		if (!(lecture.equals("") || grade.equals("")))
+			gradeService.addGrade(lecture, grade);
 		return "redirect:grades";
 	}
 }
