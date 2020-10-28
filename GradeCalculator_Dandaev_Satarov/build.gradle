@@ -21,6 +21,7 @@ dependencies {
 		exclude group: 'org.junit.vintage', module: 'junit-vintage-engine'
 	}
 	compile('javax.xml.bind:jaxb-api:2.3.0')
+	testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 }
 
 test {
