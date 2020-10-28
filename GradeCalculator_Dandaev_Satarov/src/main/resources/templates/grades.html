@@ -11,5 +11,13 @@
 	    <td th:text="${grade.lecture}" />
 	    <td th:text="${grade.grade}" />
 	</tr>
+	<form th:action="@{/add}" method = "post">
+		<input type="text" name="lecture">
+		<br>
+		<input type="text" name="grade">
+		<br>
+		<input type="submit" value="Add Grade">
+	</form>
+	
 </body>
 </html>
