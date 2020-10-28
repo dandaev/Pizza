@@ -21,7 +21,9 @@ public class GradeController {
 	@RequestMapping("/grades")
 	public String listAllGrades(Model model) {
 		List<Grade> grades = gradeService.listAllGrades();
+		Double notendurchschnitt = gradeService.calculcateAverage();
 		model.addAttribute("grades", grades);
+		model.addAttribute("notendurchschnitt",notendurchschnitt);
 		return "grades";
 	}
 	
