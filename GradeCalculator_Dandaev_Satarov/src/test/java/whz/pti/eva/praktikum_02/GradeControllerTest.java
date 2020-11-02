@@ -1,6 +1,7 @@
 package whz.pti.eva.praktikum_02;
 
 import static org.hamcrest.collection.IsCollectionWithSize.hasSize;
+import static org.mockito.Mockito.when;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -9,10 +10,13 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.view;
 
+import java.util.List;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
 import org.springframework.http.MediaType;
 import org.springframework.test.annotation.DirtiesContext;
 import org.springframework.test.annotation.DirtiesContext.ClassMode;
@@ -20,7 +24,7 @@ import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.setup.MockMvcBuilders;
 import org.springframework.web.context.WebApplicationContext;
 
-import whz.pti.eva.praktikum_02.domain.GradeRepository;
+import whz.pti.eva.praktikum_02.domain.Grade;
 import whz.pti.eva.praktikum_02.service.GradeService;
 
 @SpringBootTest
@@ -30,11 +34,8 @@ public class GradeControllerTest {
 	@Autowired
 	private WebApplicationContext wac;
 	
-	@Autowired
-	private GradeService gradeSrvice;
-	
-	@Autowired
-	private GradeRepository gradeRepository;
+	@MockBean
+	private GradeService gradeService;
 	
 	private MockMvc mockMvc;
 	
@@ -43,9 +44,11 @@ public class GradeControllerTest {
 		mockMvc = MockMvcBuilders
 				.webAppContextSetup(wac)
 				.build();
-		gradeRepository.deleteAll();
-		gradeSrvice.addGrade("Math", "1.6");
-		gradeSrvice.addGrade("Eva", "1.0");
+		when(gradeService.listAllGrades()).thenReturn(List.of(
+				new Grade("Math","1.8"),
+				new Grade("Eva", "1.2")
+				));
+		when(gradeService.calculcateAverage()).thenReturn(1.5);
 	}
 	
 	@Test
@@ -56,7 +59,7 @@ public class GradeControllerTest {
 				.andExpect(status().isOk())
 				.andExpect(view().name("grades"))
 				.andExpect(model().attribute("grades", hasSize(2)))
-				.andExpect(model().attribute("notendurchschnitt", 1.3))
+				.andExpect(model().attribute("notendurchschnitt", 1.5))
 				.andDo(print());
 	}
 	
