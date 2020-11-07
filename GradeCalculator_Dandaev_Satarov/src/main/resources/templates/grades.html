@@ -4,22 +4,60 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width,
 	initial-scale=1, shrink-to-fit=no">
-	<title>EvaSpringChatApp</title>
+	<title>GradeCalculator_Dandaev_Satarov</title>
+	<link rel="stylesheet" th:href="@{/css/bootstrap/bootstrap.min.css}">
+	<style type="text/css">
+		@media (min-width: 620px) {
+		    .container{
+		        max-width: 620px;
+		    }
+		}
+	</style>
 </head>
 <body>
-	<tr th:each="grade: ${grades}">
-	    <td th:text="${grade.lecture}" />
-	    <td th:text="${grade.grade}" />
-	</tr>
-	<form th:action="@{/add}" method = "post">
-		<input type="text" name="lecture">
+	<div class="container">
 		<br>
-		<input type="text" name="grade">
+		<h1>Meine kleine Notenverwaltung</h1>
 		<br>
-		<input type="submit" value="Add Grade">
-	</form>
-	<h1>Notendurchschnitt: <span th:text="${notendurchschnitt}"></span></h1>
-	
-	
+		<div th:if="${grades.size() == 0}" class="text-center">No elements!</div>
+		<table th:if="${grades.size() > 0}" class="table table-bordered rounded">
+			<thead class="thead-light">
+				<tr>
+					<th scope="col">Lecture</th>
+					<th scope="col">Grade</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr th:each="grade : ${grades}">
+					<th th:text="${grade.lecture}"></th>
+					<th th:text="${grade.grade}"></th>
+				</tr>
+			</tbody>
+		</table>
+		<br>
+		<h3 th:if="${grades.size() > 0}" th:text="${'Notendurchschnitt:' + notendurchschnitt}"></h3>
+		<br>
+		<br>
+		<form th:action="@{/add}" method="post">
+			<div class="form-group row">
+				<label for="lecture" class="col-sm-2 col-form-label">Vorlesung:</label>
+				<div class="col-sm-10">
+					<input name="lecture" type="text" class="form-control" id="lecture" placeholder="Lecture">
+				</div>
+			</div>
+			<div class="form-group row">
+				<label for="grade" class="col-sm-2 col-form-label">Note:</label>
+				<div class="col-sm-10">
+					<input name="grade" type="text" class="form-control" id="grade" placeholder="Grade">
+				</div>
+			</div>
+			<div class="form-group row">
+				<div class="col-sm-8"></div>
+				<div class="col-sm-4">
+					<button type="submit" class="btn btn-primary btn-block">Note eintragen</button>
+				</div>
+			</div>
+		</form>
+	</div>
 </body>
 </html>

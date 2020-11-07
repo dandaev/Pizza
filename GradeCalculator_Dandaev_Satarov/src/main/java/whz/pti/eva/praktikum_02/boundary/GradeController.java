@@ -23,12 +23,12 @@ public class GradeController {
 		List<Grade> grades = gradeService.listAllGrades();
 		Double notendurchschnitt = gradeService.calculcateAverage();
 		model.addAttribute("grades", grades);
-		model.addAttribute("notendurchschnitt",notendurchschnitt);
+		model.addAttribute("notendurchschnitt", notendurchschnitt);
 		return "grades";
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addGrade(@RequestParam String lecture,@RequestParam String grade) {
+	public String addGrade(@RequestParam String lecture, @RequestParam String grade) {
 		if (!(lecture.equals("") || grade.equals("")))
 			gradeService.addGrade(lecture, grade);
 		return "redirect:grades";
