@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import whz.pti.eva.praktikum_02.domain.Grade;
 import whz.pti.eva.praktikum_02.service.GradeService;
@@ -28,9 +29,9 @@ public class GradeController {
 	}
 	
 	@RequestMapping(value = "/add", method = RequestMethod.POST)
-	public String addGrade(@RequestParam String lecture, @RequestParam String grade) {
-		if (!(lecture.equals("") || grade.equals("")))
-			gradeService.addGrade(lecture, grade);
+	public String addGrade(@RequestParam String lecture, @RequestParam String grade, RedirectAttributes redirectAttributes ) {
+		if (gradeService.addGrade(lecture, grade) == false)
+			redirectAttributes.addFlashAttribute("error", "Invalid input");
 		return "redirect:grades";
 	}
 }

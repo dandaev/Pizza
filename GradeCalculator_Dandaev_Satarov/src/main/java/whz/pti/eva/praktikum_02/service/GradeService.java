@@ -5,6 +5,6 @@ import whz.pti.eva.praktikum_02.domain.Grade;
 public interface GradeService {
 	
 	List<Grade> listAllGrades();
-	void addGrade(String lecture, String grade);
+	boolean addGrade(String lecture, String grade);
 	double calculcateAverage();
 }

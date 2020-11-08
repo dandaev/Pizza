@@ -2,8 +2,10 @@ package whz.pti.eva.praktikum_02.service;
 
 import java.util.List;
 
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
 
 import whz.pti.eva.praktikum_02.domain.Grade;
 import whz.pti.eva.praktikum_02.domain.GradeRepository;
@@ -18,6 +20,7 @@ public class GradeServiceImpl implements GradeService {
 	@Autowired
 	private GradeRepository gradeRepository;
 	private Double noteSum;
+	private Double noteSum1;
 	
 	
 	/**
@@ -26,8 +29,16 @@ public class GradeServiceImpl implements GradeService {
 	 * @param grade String - Note von Unterricht
 	 */
 	@Override
-	public void addGrade(String lecture, String grade) {
-		gradeRepository.save(new Grade(lecture, grade));
+	public boolean addGrade(String lecture, String grade) {
+		try {
+			noteSum1 = Double.parseDouble(grade);
+			gradeRepository.save(new Grade(lecture, grade));
+			return true;
+		}
+		catch(NumberFormatException e) {
+			System.out.print("Number format error");
+			return false;
+		}
 	}
 	
 	/**
