@@ -19,6 +19,7 @@ public class GradeController {
 	@Autowired
 	private GradeService gradeService;
 	
+
 	@RequestMapping("/grades")
 	public String listAllGrades(Model model) {
 		List<Grade> grades = gradeService.listAllGrades();

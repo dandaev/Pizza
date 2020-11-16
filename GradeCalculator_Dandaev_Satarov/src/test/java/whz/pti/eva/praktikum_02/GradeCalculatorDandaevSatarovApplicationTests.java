@@ -25,24 +25,34 @@ class GradeCalculatorDandaevSatarovApplicationTests {
 		gradeRepository.deleteAll();
 	}
 
-	@Test
-	void testAddGradeAndListAllGradesMethod() {
-		gradeServiceImpl.addGrade("Mathe", "1.5");
-		gradeServiceImpl.addGrade("Eva", "1.2");
-		
-		assertEquals(2, gradeServiceImpl.listAllGrades().size());
-	}
-	
-	@Test
-	void testCalculateAverageMethod() {
-		gradeServiceImpl.addGrade("Mathe", "2.0");
-		gradeServiceImpl.addGrade("Eva", "2.0");
-		
-		assertEquals(2.0, gradeServiceImpl.calculcateAverage());
-	}
+	   /**
+	   * Test fuer addGrade() und listAllGrades()
+	   */
+	  @Test
+	  void testAddGradeAndListAllGradesMethod() {
+	    gradeServiceImpl.addGrade("Mathe", "1.5");
+	    gradeServiceImpl.addGrade("Eva", "1.2");
+	    
+	    assertEquals(2, gradeServiceImpl.listAllGrades().size());
+	  }
+	  
+	  /**
+	   * Test fuer calculateAverage()
+	   */
+	  @Test
+	  void testCalculateAverageMethod() {
+	    gradeServiceImpl.addGrade("Mathe", "2.0");
+	    gradeServiceImpl.addGrade("Eva", "2.0");
+	    
+	    assertEquals(2.0, gradeServiceImpl.calculcateAverage());
+	  }
 
-	@Test
-	void testCalculateAverageMethodWithoutGrades() {
-		assertEquals(0, gradeServiceImpl.calculcateAverage());
-	}
+	  /**
+	   * Test fuer calculateAverage() wenn es keine Grades gibt
+	   */
+	  @Test
+	  void testCalculateAverageMethodWithoutGrades() {
+	    assertEquals(0, gradeServiceImpl.calculcateAverage());
+	  }
+
 }

@@ -30,47 +30,59 @@ import whz.pti.eva.praktikum_02.service.GradeService;
 @SpringBootTest
 @DirtiesContext(classMode = ClassMode.AFTER_CLASS)
 public class GradeControllerTest {
-	
-	@Autowired
-	private WebApplicationContext wac;
-	
-	@MockBean
-	private GradeService gradeService;
-	
-	private MockMvc mockMvc;
-	
-	@BeforeEach
-	public void setup() {
-		mockMvc = MockMvcBuilders
-				.webAppContextSetup(wac)
-				.build();
-		when(gradeService.listAllGrades()).thenReturn(List.of(
-				new Grade("Math","1.8"),
-				new Grade("Eva", "1.2")
-				));
-		when(gradeService.calculcateAverage()).thenReturn(1.5);
-	}
-	
-	@Test
-	public void getListAllGrades() throws Exception {
-		mockMvc.perform(get("/grades")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				)
-				.andExpect(status().isOk())
-				.andExpect(view().name("grades"))
-				.andExpect(model().attribute("grades", hasSize(2)))
-				.andExpect(model().attribute("notendurchschnitt", 1.5))
-				.andDo(print());
-	}
-	
-	@Test
-	public void postAddGrade() throws Exception {
-		mockMvc.perform(post("/add")
-				.contentType(MediaType.APPLICATION_JSON_VALUE)
-				.param("lecture", "Geschichte")
-				.param("grade", "1.6")
-				)
-				.andExpect(status().is3xxRedirection())
-				.andExpect(redirectedUrl("grades"));
-	}
+  
+  @Autowired
+  private WebApplicationContext wac;
+  
+  @MockBean
+  private GradeService gradeService;
+  
+  private MockMvc mockMvc;
+  
+  /**
+   * Methode zum konfigurieren von MockMvc und 
+   * gradeService zum testen des GradeController
+   */
+  @BeforeEach
+  public void setup() {
+    mockMvc = MockMvcBuilders
+        .webAppContextSetup(wac)
+        .build();
+    when(gradeService.listAllGrades()).thenReturn(List.of(
+        new Grade("Math","1.8"),
+        new Grade("Eva", "1.2")
+        ));
+    when(gradeService.calculcateAverage()).thenReturn(1.5);
+  }
+  
+  /**
+   * Test fuer das Endpoint "/grades"
+   * @throws Exception
+   */
+  @Test
+  public void getListAllGrades() throws Exception {
+    mockMvc.perform(get("/grades")
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        )
+        .andExpect(status().isOk())
+        .andExpect(view().name("grades"))
+        .andExpect(model().attribute("grades", hasSize(2)))
+        .andExpect(model().attribute("notendurchschnitt", 1.5))
+        .andDo(print());
+  }
+  
+  /**
+   * Test fuer das Endpoint "/add"
+   * @throws Exception
+   */
+  @Test
+  public void postAddGrade() throws Exception {
+    mockMvc.perform(post("/add")
+        .contentType(MediaType.APPLICATION_JSON_VALUE)
+        .param("lecture", "Geschichte")
+        .param("grade", "1.6")
+        )
+        .andExpect(status().is3xxRedirection())
+        .andExpect(redirectedUrl("grades"));
+  }
 }
