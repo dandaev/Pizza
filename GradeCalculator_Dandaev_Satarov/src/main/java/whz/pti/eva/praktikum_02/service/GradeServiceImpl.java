@@ -17,12 +17,15 @@ import whz.pti.eva.praktikum_02.domain.GradeRepository;
 @Service
 public class GradeServiceImpl implements GradeService {
 
-	@Autowired
-	private GradeRepository gradeRepository;
+	private final GradeRepository gradeRepository;
 	private Double noteSum;
 	private Double noteSum1;
-	
-	
+
+	public GradeServiceImpl(GradeRepository gradeRepository) {
+		this.gradeRepository = gradeRepository;
+	}
+
+
 	/**
 	 * traegt eine neue Note in die Liste ein
 	 * @param lecture String - Name von Unterricht  
