@@ -40,19 +40,19 @@
                 </tr>
             </thead>
             <tbody>
-                <tr>
+                <tr th:each="pizza:${pizzas}">
                     <form action="#">
                         <td>
                             <label>
                                 <input type="number" placeholder="Menge" value="0">
                             </label>
                         </td>
-                        <td>margarita</td>
+                        <td th:text="${pizza.getName()}">Pizza Name</td>
                         <td>
                             <select>
-                                <option>Medium / 2.00</option>
-                                <option>Large / 4.50</option>
-                                <option>Small / 1.00</option>
+                                <option th:text="${'Medium / '+pizza.getPriceMedium()}"></option>
+                                <option th:text="${'Large / '+pizza.getPriceLarge()}"></option>
+                                <option th:text="${'Small / '+pizza.getPriceSmall()}"></option>
                             </select>
                         </td>
                         <td>
@@ -60,108 +60,6 @@
                         </td>
                     </form>
                 </tr>
-<!--                копии строк столбца, удалить-->
-                <tr>
-                    <form action="#">
-                        <td>
-                            <label>
-                                <input type="number" placeholder="Menge" value="0">
-                            </label>
-                        </td>
-                        <td>margarita</td>
-                        <td>
-                            <select>
-                                <option>Medium / 2.00</option>
-                                <option>Large / 4.50</option>
-                                <option>Small / 1.00</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="submit">in den Warenkorb</button>
-                        </td>
-                    </form>
-                </tr>
-                <tr>
-                    <form action="#">
-                        <td>
-                            <label>
-                                <input type="number" placeholder="Menge" value="0">
-                            </label>
-                        </td>
-                        <td>margarita</td>
-                        <td>
-                            <select>
-                                <option>Medium / 2.00</option>
-                                <option>Large / 4.50</option>
-                                <option>Small / 1.00</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="submit">in den Warenkorb</button>
-                        </td>
-                    </form>
-                </tr>
-                <tr>
-                    <form action="#">
-                        <td>
-                            <label>
-                                <input type="number" placeholder="Menge" value="0">
-                            </label>
-                        </td>
-                        <td>margarita</td>
-                        <td>
-                            <select>
-                                <option>Medium / 2.00</option>
-                                <option>Large / 4.50</option>
-                                <option>Small / 1.00</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="submit">in den Warenkorb</button>
-                        </td>
-                    </form>
-                </tr>
-                <tr>
-                    <form action="#">
-                        <td>
-                            <label>
-                                <input type="number" placeholder="Menge" value="0">
-                            </label>
-                        </td>
-                        <td>margarita</td>
-                        <td>
-                            <select>
-                                <option>Medium / 2.00</option>
-                                <option>Large / 4.50</option>
-                                <option>Small / 1.00</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="submit">in den Warenkorb</button>
-                        </td>
-                    </form>
-                </tr>
-                <tr>
-                    <form action="#">
-                        <td>
-                            <label>
-                                <input type="number" placeholder="Menge" value="0">
-                            </label>
-                        </td>
-                        <td>margarita</td>
-                        <td>
-                            <select>
-                                <option>Medium / 2.00</option>
-                                <option>Large / 4.50</option>
-                                <option>Small / 1.00</option>
-                            </select>
-                        </td>
-                        <td>
-                            <button type="submit">in den Warenkorb</button>
-                        </td>
-                    </form>
-                </tr>
-<!--                до сюдого-->
             </tbody>
         </table>
 
