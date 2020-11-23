@@ -1,0 +1,43 @@
+.container {
+    width: 80vw;
+    margin: auto;
+    overflow-x: hidden;
+}
+
+h3.hallo {
+    text-align: center;
+}
+
+nav {
+    position: relative;
+    background-color: #f7f8f9;
+}
+
+nav.imponent {
+    padding: 2em 0;
+}
+
+.imponent .logo {
+    height: 3em;
+}
+
+table.primary {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table.primary td, table.primary th {
+    border: 1px solid #ddd;
+}
+
+td {
+    text-align: center;
+}
+
+.secondary-color {
+    background-color: #aaaaaa;
+}
+
+.width-max {
+    width: 100%;
+}

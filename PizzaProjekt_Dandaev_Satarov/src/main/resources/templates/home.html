@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/picnic.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+
+    <div class="container">
+        <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+
+        <nav class="demo imponent">
+            <a href="#" class="brand">
+                <img class="logo" th:src="@{/img/logo.png}" />
+                <span>PizzaForever-App</span>
+            </a>
+
+            <input id="bmenub" type="checkbox" class="show">
+            <label for="bmenub" class="burger pseudo button">menu</label>
+
+            <div class="menu">
+                <a class="pseudo button">Auswahl</a>
+                <a class="pseudo button">einloggen</a>
+            </div>
+        </nav>
+
+        <br>
+
+        <table class="primary">
+            <thead>
+                <tr>
+                    <th class="secondary-color">Menge</th>
+                    <th class="secondary-color">Pizza</th>
+                    <th class="secondary-color">Preis+Größe</th>
+                    <th class="secondary-color">in den Warenkorb</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr>
+                    <form action="#">
+                        <td>
+                            <label>
+                                <input type="number" placeholder="Menge" value="0">
+                            </label>
+                        </td>
+                        <td>margarita</td>
+                        <td>
+                            <select>
+                                <option>Medium / 2.00</option>
+                                <option>Large / 4.50</option>
+                                <option>Small / 1.00</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit">in den Warenkorb</button>
+                        </td>
+                    </form>
+                </tr>
+<!--                копии строк столбца, удалить-->
+                <tr>
+                    <form action="#">
+                        <td>
+                            <label>
+                                <input type="number" placeholder="Menge" value="0">
+                            </label>
+                        </td>
+                        <td>margarita</td>
+                        <td>
+                            <select>
+                                <option>Medium / 2.00</option>
+                                <option>Large / 4.50</option>
+                                <option>Small / 1.00</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit">in den Warenkorb</button>
+                        </td>
+                    </form>
+                </tr>
+                <tr>
+                    <form action="#">
+                        <td>
+                            <label>
+                                <input type="number" placeholder="Menge" value="0">
+                            </label>
+                        </td>
+                        <td>margarita</td>
+                        <td>
+                            <select>
+                                <option>Medium / 2.00</option>
+                                <option>Large / 4.50</option>
+                                <option>Small / 1.00</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit">in den Warenkorb</button>
+                        </td>
+                    </form>
+                </tr>
+                <tr>
+                    <form action="#">
+                        <td>
+                            <label>
+                                <input type="number" placeholder="Menge" value="0">
+                            </label>
+                        </td>
+                        <td>margarita</td>
+                        <td>
+                            <select>
+                                <option>Medium / 2.00</option>
+                                <option>Large / 4.50</option>
+                                <option>Small / 1.00</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit">in den Warenkorb</button>
+                        </td>
+                    </form>
+                </tr>
+                <tr>
+                    <form action="#">
+                        <td>
+                            <label>
+                                <input type="number" placeholder="Menge" value="0">
+                            </label>
+                        </td>
+                        <td>margarita</td>
+                        <td>
+                            <select>
+                                <option>Medium / 2.00</option>
+                                <option>Large / 4.50</option>
+                                <option>Small / 1.00</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit">in den Warenkorb</button>
+                        </td>
+                    </form>
+                </tr>
+                <tr>
+                    <form action="#">
+                        <td>
+                            <label>
+                                <input type="number" placeholder="Menge" value="0">
+                            </label>
+                        </td>
+                        <td>margarita</td>
+                        <td>
+                            <select>
+                                <option>Medium / 2.00</option>
+                                <option>Large / 4.50</option>
+                                <option>Small / 1.00</option>
+                            </select>
+                        </td>
+                        <td>
+                            <button type="submit">in den Warenkorb</button>
+                        </td>
+                    </form>
+                </tr>
+<!--                до сюдого-->
+            </tbody>
+        </table>
+
+        <br>
+
+        <small>
+            IM WARENKORB ::: Anzahl der bestellten Pizzas:
+            <span>3</span>
+            mit Gesamtbetrag:
+            <span>9.00</span>
+        </small>
+        <a href="#" class="button width-max">zum Warenkorb</a>
+    </div>
+    <br>
+    <br>
+</body>
+</html>
