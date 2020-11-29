@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/picnic.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body style="background-color: #eee">
+
+<div class="container">
+
+    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+
+    <nav class="demo imponent">
+        <a href="#" class="brand">
+            <img class="logo" th:src="@{/img/logo.png}" />
+            <span>PizzaForever-App</span>
+        </a>
+
+        <input id="bmenub" type="checkbox" class="show">
+        <label for="bmenub" class="burger pseudo button">menu</label>
+
+        <div class="menu">
+            <a class="pseudo button">Auswahl</a>
+            <a class="pseudo button">einloggen</a>
+        </div>
+    </nav>
+
+    <br>
+
+    <article th:each="customer : ${customers}" class="card">
+        <header>
+            <h2 disabled
+                    th:text="${customer.getKey().getFirstName() + ' ' + customer.getKey().getLastName() + ' (' + customer.getKey().getLoginName() + ')'}"
+            >Love</h2>
+            <a class="pseudo button" th:href="@{/customer/{id}(id=${customer.getKey().getId()})}">Ändern</a>
+        </header>
+        <footer>
+            <div class="flex three-500">
+                <div th:each="address : ${customer.getValue()}">
+                    <input disabled type="text" class="stack" placeholder="Street" th:value="${address.getStreet()}"/>
+                    <input disabled type="text" class="stack" placeholder="House" th:value="${address.getHouseNumber()}"/>
+                    <input disabled type="text" class="stack" placeholder="Town" th:value="${address.getTown()}"/>
+                    <input disabled type="text" class="stack" placeholder="Plz" th:value="${address.getPostalCode()}"/>
+                </div>
+            </div>
+        </footer>
+    </article>
+
+</div>
+<br>
+<br>
+</body>
+</html>

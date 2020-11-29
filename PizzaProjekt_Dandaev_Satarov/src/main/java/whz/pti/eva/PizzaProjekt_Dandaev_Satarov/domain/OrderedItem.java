@@ -9,14 +9,7 @@ import javax.persistence.ManyToOne;
 import java.io.Serializable;
 
 @Entity
-public class OrderedItem implements Serializable {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    private String id;
+public class OrderedItem extends BaseEntity<String> {
     @ManyToOne
     private Pizza pizza;
     private int quantity;
@@ -29,14 +22,6 @@ public class OrderedItem implements Serializable {
         this.pizza = pizza;
         this.quantity = quantity;
         this.size = size;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public Pizza getPizza() {

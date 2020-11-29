@@ -10,14 +10,7 @@ import java.io.Serializable;
 import java.util.List;
 
 @Entity
-public class Ordered implements Serializable {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    private String id;
+public class Ordered extends BaseEntity<String> {
     private int numberOfItems;
     @OneToMany
     private List<OrderedItem> orderedItems;
@@ -28,14 +21,6 @@ public class Ordered implements Serializable {
     public Ordered(int numberOfItems, List<OrderedItem> orderedItems) {
         this.numberOfItems = numberOfItems;
         this.orderedItems = orderedItems;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public int getNumberOfItems() {

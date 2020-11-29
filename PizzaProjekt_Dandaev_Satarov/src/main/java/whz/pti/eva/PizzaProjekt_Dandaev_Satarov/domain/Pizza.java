@@ -9,14 +9,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 
 @Entity
-public class Pizza implements Serializable {
-    @Id
-    @GeneratedValue(generator = "UUID")
-    @GenericGenerator(
-            name = "UUID",
-            strategy = "org.hibernate.id.UUIDGenerator"
-    )
-    private String id;
+public class Pizza extends BaseEntity<String> {
     private String name;
     private BigDecimal priceLarge;
     private BigDecimal priceMedium;
@@ -30,14 +23,6 @@ public class Pizza implements Serializable {
         this.priceLarge = priceLarge;
         this.priceMedium = priceMedium;
         this.priceSmall = priceSmall;
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id;
     }
 
     public String getName() {

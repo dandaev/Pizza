@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/picnic.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body style="background-color: #eee">
+
+<div class="container">
+
+    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+
+    <nav class="demo imponent">
+        <a href="#" class="brand">
+            <img class="logo" th:src="@{/img/logo.png}" />
+            <span>PizzaForever-App</span>
+        </a>
+
+        <input id="bmenub" type="checkbox" class="show">
+        <label for="bmenub" class="burger pseudo button">menu</label>
+
+        <div class="menu">
+            <a class="pseudo button">Auswahl</a>
+            <a class="pseudo button">einloggen</a>
+        </div>
+    </nav>
+
+    <br>
+
+    <form action="#">
+        <fieldset class="flex two">
+            <label class="fourth">First Name</label>
+            <input class="three-fourth" type="text" placeholder="First Name" th:value="${customer.getFirstName()}">
+        </fieldset>
+        <br>
+        <fieldset class="flex two">
+            <label class="fourth">Last Name</label>
+            <input class="three-fourth" type="text" placeholder="Last Name" th:value="${customer.getLastName()}">
+        </fieldset>
+        <br>
+        <fieldset class="flex two">
+            <label class="fourth">Login Name</label>
+            <input class="three-fourth" type="text" placeholder="Login Name" th:value="${customer.getLoginName()}">
+        </fieldset>
+        <br>
+        <fieldset class="flex two">
+            <label class="fourth">Password Hash</label>
+            <input class="three-fourth" type="password" placeholder="Password Hash" th:value="${customer.getPasswordHash()}">
+        </fieldset>
+        <br>
+        <button type="submit">Update Customer Information</button>
+    </form>
+
+
+</div>
+<br>
+<br>
+</body>
+</html>
