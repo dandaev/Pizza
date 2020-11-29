@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
     <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
-    <title>Title</title>
+    <title>PizzaForever</title>
     <link rel="stylesheet" th:href="@{/css/picnic.css}">
     <link rel="stylesheet" th:href="@{/css/style.css}">
 </head>
@@ -41,22 +41,23 @@
             </thead>
             <tbody>
                 <tr th:each="pizza:${pizzas}">
-                    <form action="#">
+                    <form th:action="@{/indenwarencorb}" method="post">
                         <td>
                             <label>
-                                <input type="number" placeholder="Menge" value="0">
+                                <input name="menge" type="number" placeholder="Menge" value="0" pattern="^[\d]$">
                             </label>
                         </td>
                         <td th:text="${pizza.getName()}">Pizza Name</td>
                         <td>
-                            <select>
-                                <option th:text="${'Medium / '+pizza.getPriceMedium()}"></option>
-                                <option th:text="${'Large / '+pizza.getPriceLarge()}"></option>
-                                <option th:text="${'Small / '+pizza.getPriceSmall()}"></option>
+                            <select name="pizzaSize">
+                                <option th:text="${'Medium / '+pizza.getPriceMedium()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"></option>
+                                <option th:text="${'Large / '+pizza.getPriceLarge()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"></option>
+                                <option th:text="${'Small / '+pizza.getPriceSmall()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"></option>
                             </select>
                         </td>
                         <td>
-                            <button type="submit">in den Warenkorb</button>
+                            <input type="hidden" th:name="pizza" th:value="${pizza.getId()}">
+                            <button class="myCoolButton" type="submit" >in den Warenkorb</button>
                         </td>
                     </form>
                 </tr>
@@ -67,11 +68,12 @@
 
         <small>
             IM WARENKORB ::: Anzahl der bestellten Pizzas:
-            <span>3</span>
+<!--            <span th:text="${warenCorb.size()}"></span>-->
+            <span th:text="${countInWarencorb}">0</span>
             mit Gesamtbetrag:
-            <span>9.00</span>
+            <span th:text="${commonPriceInWarencorb+'€'}">0.00</span>
         </small>
-        <a href="#" class="button width-max">zum Warenkorb</a>
+        <a th:href="@{/warencorb}" class="button myCoolButton width-max">zum Warenkorb</a>
     </div>
     <br>
     <br>

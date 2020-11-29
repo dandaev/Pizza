@@ -1,6 +1,6 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.service;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service;
 
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain.Pizza;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
 
 import java.util.List;
 

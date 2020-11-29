@@ -1,12 +1,10 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain;
 
-import org.hibernate.annotations.GenericGenerator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
+import java.util.Objects;
 
 @Entity
 public class Item extends BaseEntity<String> {
@@ -46,5 +44,22 @@ public class Item extends BaseEntity<String> {
 
     public void setSize(PizzaSize size) {
         this.size = size;
+    }
+
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        if (!super.equals(o)) return false;
+        Item item = (Item) o;
+        return quantity == item.quantity &&
+                Objects.equals(pizza, item.pizza) &&
+                size == item.size;
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(super.hashCode(), pizza, size);
     }
 }

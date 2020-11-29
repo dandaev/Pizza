@@ -1,12 +1,9 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain;
 
-import org.hibernate.annotations.GenericGenerator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.OneToMany;
-import java.io.Serializable;
 import java.util.List;
 
 @Entity

@@ -4,13 +4,12 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain.Pizza;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.Customer;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.DeliveryAddressService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.DeliveryAddressDto;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.service.PizzaService;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
 
 import javax.annotation.PostConstruct;
 import java.math.BigDecimal;

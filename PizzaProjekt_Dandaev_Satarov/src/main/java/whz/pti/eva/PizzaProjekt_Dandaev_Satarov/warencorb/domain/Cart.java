@@ -1,6 +1,7 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common;
 
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.Customer;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
 
 import javax.persistence.*;
 import java.util.Map;

@@ -1,12 +1,11 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.service.implementation;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.implementation;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain.Item;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain.repository.ItemRepository;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.service.ItemService;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.repository.ItemRepository;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.ItemService;
 
 import java.util.List;
 

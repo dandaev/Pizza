@@ -1,12 +1,11 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain;
 
-import org.hibernate.annotations.GenericGenerator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize;
 
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
 import javax.persistence.ManyToOne;
-import java.io.Serializable;
 
 @Entity
 public class OrderedItem extends BaseEntity<String> {

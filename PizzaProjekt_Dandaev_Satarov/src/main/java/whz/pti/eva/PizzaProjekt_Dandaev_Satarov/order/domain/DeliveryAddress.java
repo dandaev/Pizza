@@ -1,6 +1,6 @@
 package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain;
 
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.domain.BaseEntity;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;

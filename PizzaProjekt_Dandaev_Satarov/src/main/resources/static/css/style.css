@@ -1,3 +1,6 @@
+body{
+    background-color: #fffbf4;
+}
 .container {
     width: 80vw;
     margin: auto;
@@ -10,7 +13,7 @@ h3.hallo {
 
 nav {
     position: relative;
-    background-color: #f7f8f9;
+    background-color: #fffbf4;
 }
 
 nav.imponent {
@@ -40,4 +43,22 @@ td {
 
 .width-max {
     width: 100%;
+}
+
+.fr{
+    float: right;
+}
+.cool:hover,
+.cool:active,
+.cool:focus {
+    background: #D4EFDF;
+}
+.bad:hover,
+.bad:active,
+.bad:focus {
+    background: #D98880;
+}
+
+.myCoolButton{
+    background: #ABB2B9;
 }

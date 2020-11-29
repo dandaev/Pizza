@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+    <title>WarenCorb</title>
+    <link rel="stylesheet" th:href="@{/css/picnic.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body>
+<div class="container">
+    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+    <nav class="demo imponent">
+        <a href="#" class="brand">
+            <img class="logo" th:src="@{/img/logo.png}"/>
+            <span>PizzaForever-App</span>
+        </a>
+
+        <input id="bmenub" type="checkbox" class="show">
+        <label for="bmenub" class="burger pseudo button">menu</label>
+
+        <div class="menu">
+            <a class="pseudo button" th:href="@{/}">Auswahl</a>
+            <a class="pseudo button">einloggen</a>
+        </div>
+    </nav>
+    <br/>
+    <div class="flex four">
+        <div class="three-fourth">
+            <article class="card" th:each="item:${items}">
+                <header>
+                    <h2 th:text="${item.getPizza().getName()}"></h2>
+                    <span class="label" th:text="${item.getSize()}"></span>
+                </header>
+                <footer>
+                    <div class="flex three">
+                        <div th:switch="${item.getSize()}">
+                            <h4 th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"
+                                th:text="${item.getPizza().getPriceLarge() + '€'}"></h4>
+                            <h4 th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"
+                                th:text="${item.getPizza().getPriceMedium() + '€'}"></h4>
+                            <h4 th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"
+                                th:text="${item.getPizza().getPriceSmall() + '€'}"></h4>
+                        </div>
+                        <div style="text-align: center">
+                            <button class="pseudo cool"> -</button>
+                            <h3 style="display: inline-block" th:text="${item.getQuantity()}"></h3>
+                            <button class="pseudo cool"> +</button>
+                        </div>
+                        <div>
+                            <form method="post" th:action="@{deleteitem}">
+                                <input type="hidden" th:name="deletedItemPizzaId" th:value="${item.getPizza().getId()}">
+                                <input type="hidden" th:name="deletedItemQuantity" th:value="${item.getQuantity()}">
+                                <input type="hidden" th:name="deletedItemPizzaSize" th:value="${item.getSize()}">
+                                <button class="pseudo bad fr" type="submit">Delete</button>
+                            </form>
+                        </div>
+                    </div>
+                </footer>
+            </article>
+        </div>
+        <div>
+            <article class="card">
+                <header>
+                    <h2 th:text="${'GesamtPreis: '+ commonPreis + '€'}"></h2>
+                </header>
+                <footer>
+                    <button class="stack myCoolButton">Bezahlen</button>
+                </footer>
+            </article>
+        </div>
+    </div>
+</div>
+<br>
+<br>
+</body>
+</body>
+</html>
