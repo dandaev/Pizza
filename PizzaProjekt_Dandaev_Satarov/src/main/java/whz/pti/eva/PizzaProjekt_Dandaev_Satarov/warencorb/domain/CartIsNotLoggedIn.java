@@ -2,16 +2,12 @@ package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.implementation.ItemServiceImpl;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 @Component
@@ -46,21 +42,21 @@ public class CartIsNotLoggedIn {
             switch (item.getSize()) {
                 case Small:
                     commonPrice = commonPrice.add(pizza.getPriceSmall().multiply(new BigDecimal(item.getQuantity())));
-                    LOGGER.info("Added Small Pizza: " + pizza.getName()
+                    LOGGER.info("Warencorb: Small Pizza: " + pizza.getName()
                             + " Price " + pizza.getPriceSmall()
                             + " Count " + item.getQuantity()
                             + " Common price " + commonPrice);
                     break;
                 case Large:
                     commonPrice = commonPrice.add(pizza.getPriceLarge().multiply(new BigDecimal(item.getQuantity())));
-                    LOGGER.info("Added Large Pizza: " + pizza.getName()
+                    LOGGER.info("Warencorb: Large Pizza: " + pizza.getName()
                             + " Price " + pizza.getPriceLarge()
                             + " Count " + item.getQuantity()
                             + " Common price " + commonPrice);
                     break;
                 case Medium:
                     commonPrice = commonPrice.add(pizza.getPriceMedium().multiply(new BigDecimal(item.getQuantity())));
-                    LOGGER.info("Added Medium Pizza: " + pizza.getName()
+                    LOGGER.info("Warencorb: Medium Pizza: " + pizza.getName()
                             + " Price " + pizza.getPriceMedium()
                             + " Count " + item.getQuantity()
                             + " Common price " + commonPrice);
@@ -71,7 +67,6 @@ public class CartIsNotLoggedIn {
     }
 
     public void deleteItem(Item item) {
-        LOGGER.info("Zashlo v deleteItem " + item);
         int r = -1;
         for (int i=0;i<=items.size();i++){
             if (items.get(i).getPizza().equals(item.getPizza()) &&
@@ -104,6 +99,21 @@ public class CartIsNotLoggedIn {
             LOGGER.info("Quantity added");
             item.setQuantity(items.get(a).getQuantity() + item.getQuantity());
             items.set(a, item);
+        }
+    }
+    public void increaseDecreaseCount(Item item,int or){
+        for (int i=0;i<=items.size();i++){
+            if (items.get(i).getPizza().equals(item.getPizza()) &&
+                    items.get(i).getSize().equals(item.getSize()) &&
+                    items.get(i).getQuantity() == item.getQuantity()) {
+                if (or == 0){
+                    item.setQuantity(item.getQuantity()+1);
+                }else {
+                    item.setQuantity(item.getQuantity()-1);
+                }
+                items.set(i,item);
+                break;
+            }
         }
     }
 }

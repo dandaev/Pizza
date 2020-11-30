@@ -1,9 +1,11 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain;
 
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.Customer;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
 
-import javax.persistence.*;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import java.util.Map;
 
 @Entity

@@ -59,6 +59,9 @@ td {
     background: #D98880;
 }
 
+.dib{
+    display: inline-block !important;
+}
 .myCoolButton{
     background: #ABB2B9;
 }
