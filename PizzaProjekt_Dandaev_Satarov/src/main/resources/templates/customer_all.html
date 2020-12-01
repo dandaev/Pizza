@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
+    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
+    <title>Title</title>
+    <link rel="stylesheet" th:href="@{/css/picnic.css}">
+    <link rel="stylesheet" th:href="@{/css/style.css}">
+</head>
+<body style="background-color: #eee">
+
+<div class="container">
+
+    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+
+    <nav class="demo imponent">
+        <a href="#" class="brand">
+            <img class="logo" th:src="@{/img/logo.png}" />
+            <span>PizzaForever-App</span>
+        </a>
+
+        <input id="bmenub" type="checkbox" class="show">
+        <label for="bmenub" class="burger pseudo button">menu</label>
+
+        <div class="menu">
+            <a class="pseudo button">Auswahl</a>
+            <a class="pseudo button">einloggen</a>
+        </div>
+    </nav>
+
+    <br>
+
+    <div class="flex two-500">
+        <div>
+            <h3>Neuen Customer hinzufügen</h3>
+            <article class="card">
+                <header>
+                    <form th:action="@{/customer/new}" method="post" role="form" th:object="${customerCreateForm}">
+                        <br>
+                        <fieldset>
+                            <input type="text" placeholder="First Name" name="firstName">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="text" placeholder="Last Name" name="lastName">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="text" placeholder="Login Name" name="loginName">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="password" placeholder="Password New" name="passwordNew">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="password" placeholder="Password Confirm" name="passwordConfirm">
+                        </fieldset>
+                        <br>
+                        <fieldset class="flex two-500">
+                            <label>
+                                <button type="submit">Speichern</button>
+                            </label>
+                        </fieldset>
+                    </form>
+                </header>
+            </article>
+        </div>
+        <div>
+            <h3>Liste der Kunden</h3>
+            <article th:each="customer : ${customers}" class="card">
+                <header>
+                    <button disabled th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"></button>
+                    <button disabled th:text="${customer.getLoginName()}"></button>
+                    <a style="float: right" class="button warning" th:href="@{/customer/{id}/info(id=${customer.getId()})}">Ändern</a>
+                    <br>
+                </header>
+            </article>
+        </div>
+    </div>
+
+</div>
+<br>
+<br>
+</body>
+</html>

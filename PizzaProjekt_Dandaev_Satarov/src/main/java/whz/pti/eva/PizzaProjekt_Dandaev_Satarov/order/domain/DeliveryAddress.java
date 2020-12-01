@@ -1,5 +1,7 @@
 package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain;
 
+import org.hibernate.annotations.OnDelete;
+import org.hibernate.annotations.OnDeleteAction;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 
 import javax.persistence.Entity;
@@ -12,6 +14,7 @@ public class DeliveryAddress extends BaseEntity<String> {
     private String town;
     private String postalCode;
     @ManyToOne
+    @OnDelete(action = OnDeleteAction.CASCADE)
     private Customer customer;
 
     public DeliveryAddress() {

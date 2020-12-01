@@ -42,6 +42,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public boolean existsByLoginName(String loginName) {
+        return customerRepository.existsByLoginName(loginName);
+    }
+
+    @Override
     public CustomerDto create(CustomerDto customerDto) {
         Customer customer = fromDto(customerDto);
         return toDto(customerRepository.save(customer));

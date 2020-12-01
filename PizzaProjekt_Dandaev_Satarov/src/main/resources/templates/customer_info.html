@@ -24,6 +24,7 @@
         <label for="bmenub" class="burger pseudo button">menu</label>
 
         <div class="menu">
+            <a th:href="@{/customer/all}" class="pseudo button">Customers</a>
             <a class="pseudo button">Auswahl</a>
             <a class="pseudo button">einloggen</a>
         </div>
@@ -31,30 +32,77 @@
 
     <br>
 
-    <form action="#">
-        <fieldset class="flex two">
-            <label class="fourth">First Name</label>
-            <input class="three-fourth" type="text" placeholder="First Name" th:value="${customer.getFirstName()}">
-        </fieldset>
-        <br>
-        <fieldset class="flex two">
-            <label class="fourth">Last Name</label>
-            <input class="three-fourth" type="text" placeholder="Last Name" th:value="${customer.getLastName()}">
-        </fieldset>
-        <br>
-        <fieldset class="flex two">
-            <label class="fourth">Login Name</label>
-            <input class="three-fourth" type="text" placeholder="Login Name" th:value="${customer.getLoginName()}">
-        </fieldset>
-        <br>
-        <fieldset class="flex two">
-            <label class="fourth">Password Hash</label>
-            <input class="three-fourth" type="password" placeholder="Password Hash" th:value="${customer.getPasswordHash()}">
-        </fieldset>
-        <br>
-        <button type="submit">Update Customer Information</button>
-    </form>
-
+    <div class="flex two-500">
+        <div>
+            <h3>Customerdaten</h3>
+            <article class="card">
+                <header>
+                    <form id="updateForm" th:action="@{/customer/{id}/update(id=${customer.getId()})}" method="post" role="form" th:object="${customerUpdateForm}">
+                        <fieldset>
+                            <input type="hidden" name="id" th:value="${customer.getId()}">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="text" placeholder="First Name" name="firstName" th:value="${customer.getFirstName()}">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="text" placeholder="Last Name" name="lastName" th:value="${customer.getLastName()}">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="text" placeholder="Login Name" name="loginName" th:value="${customer.getLoginName()}">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="password" placeholder="Password New" name="passwordNew" th:value="${customer.getPasswordHash()}">
+                        </fieldset>
+                        <br>
+                        <fieldset>
+                            <input type="password" placeholder="Password Confirm" name="passwordConfirm" th:value="${customer.getPasswordHash()}">
+                        </fieldset>
+                        <br>
+                        <fieldset class="flex three-500">
+                            <label class="two-third-500">
+                                <button form="updateForm" type="submit">Customerdaten aktualisieren</button>
+                            </label>
+                            <label class="third-500">
+                                <button type="submit" form="deleteForm" class="error" style="float: right">Entfernen</button>
+                            </label>
+                        </fieldset>
+                    </form>
+                    <form id="deleteForm" method="post" th:action="@{/customer/{id}/delete(id=${customer.getId()})}"></form>
+                </header>
+            </article>
+        </div>
+        <div>
+            <h3>Addressen</h3>
+            <div>
+                <form method="post" th:action="@{/deliveryaddress/create}" th:object="${deliveryAddressCreateForm}">
+                    <input type="text" class="stack" placeholder="Street" name="street"/>
+                    <input type="text" class="stack" placeholder="House" name="houseNumber"/>
+                    <input type="text" class="stack" placeholder="Town" name="town"/>
+                    <input type="text" class="stack" placeholder="Plz" name="postalCode"/>
+                    <input type="hidden" name="customerId" th:value="${customer.getId()}">
+                    <button class="stack success">neue Adresse hinzufügen</button>
+                </form>
+                <br>
+            </div>
+            <div th:each="address : ${addresses}">
+                <form method="post" th:action="@{/deliveryaddress/update}" th:object="${deliveryAddressUpdateForm}">
+                    <input type="hidden" name="id" th:value="${address.getId()}">
+                    <input type="text" class="stack" placeholder="Street" name="street" th:value="${address.getStreet()}"/>
+                    <input type="text" class="stack" placeholder="House" name="houseNumber" th:value="${address.getHouseNumber()}"/>
+                    <input type="text" class="stack" placeholder="Town" name="town" th:value="${address.getTown()}"/>
+                    <input type="text" class="stack" placeholder="Plz" name="postalCode" th:value="${address.getPostalCode()}"/>
+                    <button class="stack">Daten dieser Adresse aktualisieren</button>
+                    <button type="submit" form="deleteAddressForm" class="button stack error">diese Adresse löschen</button>
+                </form>
+                <form id="deleteAddressForm" method="post" th:action="@{/deliveryaddress/delete/{id}(id=${address.getId()})}"></form>
+                <br>
+            </div>
+        </div>
+    </div>
 
 </div>
 <br>

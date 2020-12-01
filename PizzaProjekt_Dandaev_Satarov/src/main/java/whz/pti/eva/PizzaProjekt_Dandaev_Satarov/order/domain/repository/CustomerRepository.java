@@ -7,4 +7,5 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.Customer;
 @Repository
 public interface CustomerRepository extends JpaRepository<Customer, String> {
     boolean existsById(String s);
+    boolean existsByLoginName(String s);
 }

@@ -9,6 +9,7 @@ public interface CustomerService {
     CustomerDto getCustomerById(String id);
     List<CustomerDto> getAllCustomers();
     boolean existsById(String id);
+    boolean existsByLoginName(String loginName);
 
     CustomerDto create(CustomerDto customerDto);
     CustomerDto update(CustomerDto customerDto);
