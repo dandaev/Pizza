@@ -1,11 +1,14 @@
 package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto;
 
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.dto.UserDto;
+
 public class CustomerDto {
     private String id;
     private String firstName;
     private String lastName;
     private String loginName;
     private String passwordHash;
+    private UserDto userDto;
 
     public String getId() {
         return id;
@@ -45,5 +48,13 @@ public class CustomerDto {
 
     public void setPasswordHash(String passwordHash) {
         this.passwordHash = passwordHash;
+    }
+
+    public UserDto getUserDto() {
+        return userDto;
+    }
+
+    public void setUserDto(UserDto userDto) {
+        this.userDto = userDto;
     }
 }

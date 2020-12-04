@@ -1,6 +1,7 @@
 package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.boundary;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,6 +14,10 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.CustomerCreat
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.CustomerUpdateForm;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator.CustomerCreateFormValidator;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator.CustomerUpdateFormValidator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.Role;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.User;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.UserService;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.dto.UserDto;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -23,15 +28,19 @@ import java.util.List;
 public class CustomerController {
 
     private final CustomerService customerService;
+    private final UserService userService;
     private final DeliveryAddressService deliveryAddressService;
+    private final PasswordEncoder passwordEncoder;
 
     private final CustomerCreateFormValidator customerCreateFormValidator;
     private final CustomerUpdateFormValidator customerUpdateFormValidator;
 
     @Autowired
-    public CustomerController(CustomerService customerService, DeliveryAddressService deliveryAddressService, CustomerCreateFormValidator customerCreateFormValidator, CustomerUpdateFormValidator customerUpdateFormValidator) {
+    public CustomerController(CustomerService customerService, UserService userService, DeliveryAddressService deliveryAddressService, PasswordEncoder passwordEncoder, CustomerCreateFormValidator customerCreateFormValidator, CustomerUpdateFormValidator customerUpdateFormValidator) {
         this.customerService = customerService;
+        this.userService = userService;
         this.deliveryAddressService = deliveryAddressService;
+        this.passwordEncoder = passwordEncoder;
         this.customerCreateFormValidator = customerCreateFormValidator;
         this.customerUpdateFormValidator = customerUpdateFormValidator;
     }
@@ -69,8 +78,15 @@ public class CustomerController {
         customerDto.setFirstName(form.getFirstName());
         customerDto.setLastName(form.getLastName());
         customerDto.setLoginName(form.getLoginName());
-        customerDto.setPasswordHash(form.getPasswordNew());
-        customerService.create(customerDto);
+        customerDto.setPasswordHash(passwordEncoder.encode(form.getPasswordNew()));
+
+        customerDto = customerService.create(customerDto);
+
+        UserDto userDto = new UserDto();
+        userDto.setCustomerDto(customerDto);
+        userDto.setRole(Role.USER);
+        userService.create(userDto);
+
         return "redirect:" + referer;
     }
 
@@ -100,8 +116,13 @@ public class CustomerController {
         customer.setFirstName(form.getFirstName());
         customer.setLastName(form.getLastName());
         customer.setLoginName(form.getLoginName());
-        customer.setPasswordHash(form.getPasswordNew());
-        customerService.update(customer);
+        customer.setPasswordHash(passwordEncoder.encode(form.getPasswordNew()));
+        customer = customerService.update(customer);
+
+        UserDto userDto = userService.getUserByCustomerId(customer.getId());
+        userDto.setCustomerDto(customer);
+        userService.update(userDto);
+
         return "redirect:" + referer;
     }
 

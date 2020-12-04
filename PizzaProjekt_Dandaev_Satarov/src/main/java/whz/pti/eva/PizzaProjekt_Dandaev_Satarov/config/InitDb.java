@@ -3,15 +3,20 @@ package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.config;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.DeliveryAddressService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.DeliveryAddressDto;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.Role;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.UserService;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.dto.UserDto;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
 
 import javax.annotation.PostConstruct;
+import javax.transaction.Transactional;
 import java.math.BigDecimal;
 
 @Component
@@ -21,15 +26,20 @@ public class InitDb {
     private final PizzaService pizzaService;
     private final CustomerService customerService;
     private final DeliveryAddressService deliveryAddressService;
+    private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public InitDb(PizzaService pizzaService, CustomerService customerService, DeliveryAddressService deliveryAddressService) {
+    public InitDb(PizzaService pizzaService, CustomerService customerService, DeliveryAddressService deliveryAddressService, UserService userService, PasswordEncoder passwordEncoder) {
         this.pizzaService = pizzaService;
         this.customerService = customerService;
         this.deliveryAddressService = deliveryAddressService;
+        this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @PostConstruct
+    @Transactional
     public void init() {
         Pizza margarita = new Pizza("Margarita",new BigDecimal("2.50"),new BigDecimal("2.00"),new BigDecimal("1.50"));
         Pizza tonno = new Pizza("Tonno",new BigDecimal("6.00"),new BigDecimal("5.50"),new BigDecimal("5.00"));
@@ -50,15 +60,25 @@ public class InitDb {
         sam.setFirstName("Sam");
         sam.setLastName("Smith");
         sam.setLoginName("samsmith");
-        sam.setPasswordHash("secmusret");
-        customerService.create(sam);
+        sam.setPasswordHash(passwordEncoder.encode("secmusret"));
+        sam = customerService.create(sam);
 
         CustomerDto klopp = new CustomerDto();
         klopp.setFirstName("Jurgen");
         klopp.setLastName("Klopp");
         klopp.setLoginName("jurgenklopp");
-        klopp.setPasswordHash("secfutret");
-        customerService.create(klopp);
+        klopp.setPasswordHash(passwordEncoder.encode("secfutret"));
+        klopp = customerService.create(klopp);
+
+        UserDto samDto = new UserDto();
+        samDto.setCustomerDto(sam);
+        samDto.setRole(Role.ADMIN);
+        userService.create(samDto);
+
+        UserDto kloppUser = new UserDto();
+        kloppUser.setCustomerDto(klopp);
+        kloppUser.setRole(Role.USER);
+        userService.create(kloppUser);
 
         DeliveryAddressDto da = new DeliveryAddressDto();
         da.setStreet("Innere Schneeberger Str");

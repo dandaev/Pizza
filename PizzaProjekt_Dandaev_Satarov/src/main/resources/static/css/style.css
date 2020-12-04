@@ -12,7 +12,7 @@ h3.hallo {
 }
 
 nav {
-    position: relative;
+    position: fixed;
     background-color: #fffbf4;
 }
 
@@ -65,3 +65,6 @@ td {
 .myCoolButton{
     background: #ABB2B9;
 }
+/*.common-price-card{*/
+/*    position: fixed;*/
+/*}*/

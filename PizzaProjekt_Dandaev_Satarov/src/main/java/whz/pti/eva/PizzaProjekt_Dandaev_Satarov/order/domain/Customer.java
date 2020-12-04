@@ -3,6 +3,7 @@ package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 
 import javax.persistence.Entity;
+import javax.persistence.EntityListeners;
 
 @Entity
 public class Customer extends BaseEntity<String> {

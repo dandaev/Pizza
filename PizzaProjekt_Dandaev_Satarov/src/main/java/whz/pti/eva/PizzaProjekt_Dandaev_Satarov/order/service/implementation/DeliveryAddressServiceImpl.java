@@ -1,7 +1,6 @@
 package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.implementation;
 
 import org.springframework.stereotype.Service;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.Customer;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.DeliveryAddress;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.repository.DeliveryAddressRepository;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
