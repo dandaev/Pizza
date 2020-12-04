@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
-    <title>WarenCorb</title>
-    <link rel="stylesheet" th:href="@{/css/picnic.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Warencorb</title>
+    <head th:include="fragments/header :: head"></head>
 </head>
 <body>
 <div class="container">
     <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+
+    <nav th:replace="fragments/nav :: nav (txt)"></nav>
+
     <nav class="demo imponent">
         <a href="#" class="brand">
             <img class="logo" th:src="@{/img/logo.png}"/>
@@ -83,8 +82,7 @@
         </div>
     </div>
 </div>
-<br>
-<br>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </body>
 </html>

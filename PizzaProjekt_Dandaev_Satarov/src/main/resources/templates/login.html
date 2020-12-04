@@ -1,12 +1,8 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0">
-    <meta http-equiv="X-UA-Compatible" content="chrome=1, IE=edge">
-    <title>PizzaForever</title>
-    <link rel="stylesheet" th:href="@{/css/picnic.css}">
-    <link rel="stylesheet" th:href="@{/css/style.css}">
+    <title>Login</title>
+    <head th:include="fragments/header :: head"></head>
 </head>
 <head>
     <meta charset="UTF-8">
@@ -49,6 +45,6 @@
             </div>
         </form>
     </div>
-
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>
