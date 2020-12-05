@@ -4,13 +4,14 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 
 import javax.persistence.Entity;
 import javax.persistence.ManyToOne;
+import javax.persistence.criteria.CriteriaBuilder;
 import java.util.Objects;
 
 @Entity
 public class Item extends BaseEntity<String> {
     @ManyToOne
     private Pizza pizza;
-    private int quantity;
+    private Integer quantity;
     private PizzaSize size;
 
     public Item() {

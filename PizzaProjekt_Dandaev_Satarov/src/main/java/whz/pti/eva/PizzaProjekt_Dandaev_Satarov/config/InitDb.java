@@ -60,7 +60,7 @@ public class InitDb {
         sam.setFirstName("Sam");
         sam.setLastName("Smith");
         sam.setLoginName("samsmith");
-        sam.setPasswordHash(passwordEncoder.encode("secmusret"));
+        sam.setPasswordHash(passwordEncoder.encode("12345678"));
         sam = customerService.create(sam);
 
         CustomerDto klopp = new CustomerDto();

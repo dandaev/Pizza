@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.form.ItemCreateForm;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
@@ -36,34 +37,39 @@ public class CartIsNotLoggedIn {
     }
 
     public BigDecimal getCommonPrice() {
-        BigDecimal commonPrice = BigDecimal.ZERO;
-        for (Item item : items) {
-            Pizza pizza = pizzaService.getPizzaById(item.getPizza().getId());
-            switch (item.getSize()) {
-                case Small:
-                    commonPrice = commonPrice.add(pizza.getPriceSmall().multiply(new BigDecimal(item.getQuantity())));
-                    LOGGER.info("Warencorb: Small Pizza: " + pizza.getName()
-                            + " Price " + pizza.getPriceSmall()
-                            + " Count " + item.getQuantity()
-                            + " Common price " + commonPrice);
-                    break;
-                case Large:
-                    commonPrice = commonPrice.add(pizza.getPriceLarge().multiply(new BigDecimal(item.getQuantity())));
-                    LOGGER.info("Warencorb: Large Pizza: " + pizza.getName()
-                            + " Price " + pizza.getPriceLarge()
-                            + " Count " + item.getQuantity()
-                            + " Common price " + commonPrice);
-                    break;
-                case Medium:
-                    commonPrice = commonPrice.add(pizza.getPriceMedium().multiply(new BigDecimal(item.getQuantity())));
-                    LOGGER.info("Warencorb: Medium Pizza: " + pizza.getName()
-                            + " Price " + pizza.getPriceMedium()
-                            + " Count " + item.getQuantity()
-                            + " Common price " + commonPrice);
-                    break;
+        try{
+            BigDecimal commonPrice = BigDecimal.ZERO;
+            for (Item item : items) {
+                Pizza pizza = pizzaService.getPizzaById(item.getPizza().getId());
+                switch (item.getSize()) {
+                    case Small:
+                        commonPrice = commonPrice.add(pizza.getPriceSmall().multiply(new BigDecimal(item.getQuantity())));
+                        LOGGER.info("Warencorb: Small Pizza: " + pizza.getName()
+                                + " Price " + pizza.getPriceSmall()
+                                + " Count " + item.getQuantity()
+                                + " Common price " + commonPrice);
+                        break;
+                    case Large:
+                        commonPrice = commonPrice.add(pizza.getPriceLarge().multiply(new BigDecimal(item.getQuantity())));
+                        LOGGER.info("Warencorb: Large Pizza: " + pizza.getName()
+                                + " Price " + pizza.getPriceLarge()
+                                + " Count " + item.getQuantity()
+                                + " Common price " + commonPrice);
+                        break;
+                    case Medium:
+                        commonPrice = commonPrice.add(pizza.getPriceMedium().multiply(new BigDecimal(item.getQuantity())));
+                        LOGGER.info("Warencorb: Medium Pizza: " + pizza.getName()
+                                + " Price " + pizza.getPriceMedium()
+                                + " Count " + item.getQuantity()
+                                + " Common price " + commonPrice);
+                        break;
+                }
             }
+            return commonPrice;
+        }catch (NullPointerException e){
+            return new BigDecimal("0.00");
         }
-        return commonPrice;
+
     }
 
     public void deleteItem(Item item) {
@@ -71,7 +77,7 @@ public class CartIsNotLoggedIn {
         for (int i=0;i<=items.size();i++){
             if (items.get(i).getPizza().equals(item.getPizza()) &&
                     items.get(i).getSize().equals(item.getSize()) &&
-                        items.get(i).getQuantity() == item.getQuantity()) {
+                    items.get(i).getQuantity() == item.getQuantity()) {
                 r=i;
                 break;
             }
@@ -105,7 +111,7 @@ public class CartIsNotLoggedIn {
         for (int i=0;i<=items.size();i++){
             if (items.get(i).getPizza().equals(item.getPizza()) &&
                     items.get(i).getSize().equals(item.getSize()) &&
-                    items.get(i).getQuantity() == item.getQuantity()) {
+                    items.get(i).getQuantity()==(item.getQuantity())) {
                 if (or == 0){
                     item.setQuantity(item.getQuantity()+1);
                 }else {

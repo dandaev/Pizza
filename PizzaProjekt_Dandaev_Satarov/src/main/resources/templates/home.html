@@ -6,73 +6,81 @@
 </head>
 <body>
 
-    <div class="container">
-        <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+<div class="container">
+    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
 
-        <nav th:replace="fragments/nav :: nav (txt)"></nav>
+    <nav th:replace="fragments/nav :: nav (txt)"></nav>
 
-        <nav class="demo imponent">
-            <a href="#" class="brand">
-                <img class="logo" th:src="@{/img/logo.png}" />
-                <span>PizzaForever-App</span>
-            </a>
+    <nav class="demo imponent">
+        <a href="#" class="brand">
+            <img class="logo" th:src="@{/img/logo.png}"/>
+            <span>PizzaForever-App</span>
+        </a>
 
-            <input id="bmenub" type="checkbox" class="show">
-            <label for="bmenub" class="burger pseudo button">menu</label>
+        <input id="bmenub" type="checkbox" class="show">
+        <label for="bmenub" class="burger pseudo button">menu</label>
+        <label th:if="${userFullName!= null}" th:text="${userFullName + '0'}"></label>
 
-            <div class="menu">
-                <a class="pseudo button">Auswahl</a>
-                <a class="pseudo button">einloggen</a>
-            </div>
-        </nav>
+        <div class="menu">
+            <a class="pseudo button">Auswahl</a>
+            <a class="pseudo button" th:href="@{'/login'}">einloggen</a>
+        </div>
+    </nav>
 
-        <br>
+    <br>
 
-        <table class="primary">
-            <thead>
-                <tr>
-                    <th class="secondary-color">Menge</th>
-                    <th class="secondary-color">Pizza</th>
-                    <th class="secondary-color">Preis+Größe</th>
-                    <th class="secondary-color">in den Warenkorb</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr th:each="pizza:${pizzas}">
-                    <form th:action="@{/indenwarencorb}" method="post">
-                        <td>
-                            <label>
-                                <input name="menge" type="number" placeholder="Menge" value="0" pattern="^[\d]$">
-                            </label>
-                        </td>
-                        <td th:text="${pizza.getName()}">Pizza Name</td>
-                        <td>
-                            <select name="pizzaSize">
-                                <option th:text="${'Medium / '+pizza.getPriceMedium()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"></option>
-                                <option th:text="${'Large / '+pizza.getPriceLarge()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"></option>
-                                <option th:text="${'Small / '+pizza.getPriceSmall()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"></option>
-                            </select>
-                        </td>
-                        <td>
-                            <input type="hidden" th:name="pizza" th:value="${pizza.getId()}">
-                            <button class="myCoolButton" type="submit" >in den Warenkorb</button>
-                        </td>
-                    </form>
-                </tr>
-            </tbody>
-        </table>
+    <table class="primary">
+        <thead>
+        <tr>
+            <th class="secondary-color">Menge</th>
+            <th class="secondary-color">Pizza</th>
+            <th class="secondary-color">Preis+Größe</th>
+            <th class="secondary-color">in den Warenkorb</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="pizza:${pizzas}">
+            <form th:action="@{/indenwarencorb}" method="post" role="form" th:object="${itemCreateForm}">
+                <td>
+                    <input name="quantity" type="number" value="1" th:valuetype="Integer"  pattern="^[\d]$">
+                </td>
+                <td th:text="${pizza.getName()}">Pizza Name</td>
+                <td>
+                    <select name="size">
+                        <option th:text="${'Medium / '+pizza.getPriceMedium()}"
+                                th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"></option>
+                        <option th:text="${'Large / '+pizza.getPriceLarge()}"
+                                th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"></option>
+                        <option th:text="${'Small / '+pizza.getPriceSmall()}"
+                                th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"></option>
+                    </select>
+                </td>
+                <td>
+                    <fieldset>
+                        <input type="hidden" name="pizza" th:value="${pizza.getId()}" th:valuetype="pizza">
+                    </fieldset>
+                    <button class="myCoolButton" type="submit">in den Warenkorb</button>
+                </td>
+            </form>
+            <br>
+            <a><span class="error text-danger"
+                     th:if="${error != null}" th:text="${error}">The email or password
+						you have entered is invalid, try again.</span></a>
+        </tr>
+        </tbody>
+    </table>
 
-        <br>
+    <br>
 
-        <small>
-            IM WARENKORB ::: Anzahl der bestellten Pizzas:
-<!--            <span th:text="${warenCorb.size()}"></span>-->
-            <span th:text="${countInWarencorb}">0</span>
-            mit Gesamtbetrag:
-            <span th:text="${commonPriceInWarencorb+'€'}">0.00</span>
-        </small>
-        <a th:href="@{/warencorb}" class="button myCoolButton width-max">zum Warenkorb</a>
-    </div>
-    <footer th:replace="fragments/footer :: footer"></footer>
+    <small>
+        IM WARENKORB ::: Anzahl der bestellten Pizzas:
+        <!--            <span th:text="${warenCorb.size()}"></span>-->
+        <span th:text="${countInWarencorb}">0</span>
+        mit Gesamtbetrag:
+        <span th:text="${commonPriceInWarencorb+'€'}">0.00</span>
+    </small>
+    <a th:href="@{/warencorb}" class="button myCoolButton width-max">zum Warenkorb</a>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

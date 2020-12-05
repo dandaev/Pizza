@@ -11,7 +11,7 @@ import java.util.Optional;
 @Controller
 public class LoginController {
 
-    @RequestMapping(value = { "/login" }, method = RequestMethod.GET)
+    @RequestMapping(value = {"/login" }, method = RequestMethod.GET)
     public String getLoginPage(@RequestParam Optional<String> error, Model model) {
         return "login";
     }

@@ -34,12 +34,26 @@ public class PizzaServiceImpl implements PizzaService {
 
     @Override
     public Pizza getPizzaById(String id) {
-       return pizzaRepository.getPizzaById(id);
+        try {
+            return pizzaRepository.getPizzaById(id);
+        }catch (NullPointerException e){
+            LOGGER.debug("No pizza found id: ("+id+") ");
+            return null;
+        }
     }
 
     @Override
     public List<Pizza> getPizzaList() {
         return pizzaRepository.findAll();
+    }
+
+    @Override
+    public List<Pizza> findAllById(List<String> id) {
+        try {
+            return pizzaRepository.findAllById(id);
+        }catch (NullPointerException e){
+            return null;
+        }
     }
 
     @Override

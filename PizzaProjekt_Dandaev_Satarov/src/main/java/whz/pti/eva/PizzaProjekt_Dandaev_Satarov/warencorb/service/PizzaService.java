@@ -10,6 +10,7 @@ public interface PizzaService {
 
     Pizza getPizzaById(String id);
     List<Pizza> getPizzaList();
+    List<Pizza> findAllById(List<String> id);
 
     boolean updatePizza(Pizza pizza);
 
