@@ -1,14 +1,18 @@
 package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator;
 
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.CustomerUpdateForm;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.implementation.CustomerServiceImpl;
 
 @Component
 public class CustomerUpdateFormValidator implements Validator {
+    private static final Logger log = LoggerFactory.getLogger(CustomerServiceImpl.class);
     private final CustomerService customerService;
 
     @Autowired

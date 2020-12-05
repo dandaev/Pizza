@@ -1,8 +1,27 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 
-<nav th:fragment="nav (txt)">
-    navigation
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light rounded mb-4" th:fragment="nav(links)">
+    <a class="navbar-brand" href="#">
+        <img th:src="@{/img/pizza.png}" width="30" height="30" class="d-inline-block align-top" alt="" loading="lazy">
+    </a>
+    <span class="navbar-text">
+        Pizza Forever Projekt
+    </span>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#navbarsExample09" aria-controls="navbarsExample09" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+
+    <div class="navbar-collapse collapse float-right" id="navbarsExample09" style="">
+        <ul class="navbar-nav ml-auto">
+
+            <th:block th:each="link : ${links}">
+                <li th:class="${'nav-item ' + link.active}">
+                    <a th:class="${'nav-link'}" th:href="@{${link.url}}" th:text="${link.name}"></a>
+                </li>
+            </th:block>
+        </ul>
+    </div>
 </nav>
 
 </html>

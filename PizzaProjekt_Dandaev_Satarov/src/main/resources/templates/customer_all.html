@@ -4,80 +4,83 @@
     <title>All Customers</title>
     <head th:include="fragments/header :: head"></head>
 </head>
-<body style="background-color: #eee">
+<body>
 
 <div class="container">
 
-    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+    <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
 
-    <nav th:replace="fragments/nav :: nav (txt)"></nav>
-
-    <nav class="demo imponent">
-        <a href="#" class="brand">
-            <img class="logo" th:src="@{/img/logo.png}" />
-            <span>PizzaForever-App</span>
-        </a>
-
-        <input id="bmenub" type="checkbox" class="show">
-        <label for="bmenub" class="burger pseudo button">menu</label>
-
-        <div class="menu">
-            <a class="pseudo button">Auswahl</a>
-            <a class="pseudo button">einloggen</a>
-        </div>
-    </nav>
+    <nav th:replace="fragments/nav :: nav (links=${ {
+        {name:'Liste', url:'/customer/all', active:'active'},
+        {name:'Auslogen', url:'/logout', active:''}
+    }})"></nav>
 
     <br>
 
-    <div class="flex two-500">
-        <div>
+    <div class="row">
+        <div class="col-md">
             <h3>Neuen Customer hinzufügen</h3>
-            <article class="card">
-                <header>
+            <div class="card">
+                <div class="card-body">
                     <form th:action="@{/customer/new}" method="post" role="form" th:object="${customerCreateForm}">
-                        <br>
-                        <fieldset>
-                            <input type="text" placeholder="First Name" name="firstName">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="text" placeholder="Last Name" name="lastName">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="text" placeholder="Login Name" name="loginName">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="password" placeholder="Password New" name="passwordNew">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="password" placeholder="Password Confirm" name="passwordConfirm">
-                        </fieldset>
-                        <br>
-                        <fieldset class="flex two-500">
-                            <label>
-                                <button type="submit">Speichern</button>
-                            </label>
-                        </fieldset>
+                        <div class="form-group row">
+                            <label for="inputFirstName" class="col-md-4 col-form-label">First Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="First Name" name="firstName" id="inputFirstName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputLastName" class="col-md-4 col-form-label">Last Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="Last Name" name="lastName" id="inputLastName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputLoginName" class="col-md-4 col-form-label">Login Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="Login Name" name="loginName" id="inputLoginName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPasswordNew" class="col-md-4 col-form-label">Password New</label>
+                            <div class="col-md-8">
+                                <input type="password" class="form-control" placeholder="Password New" name="passwordNew" id="inputPasswordNew">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPasswordConfirm" class="col-md-4 col-form-label">Password Confirm</label>
+                            <div class="col-md-8">
+                                <input type="password" class="form-control" placeholder="Password Confirm" name="passwordConfirm" id="inputPasswordConfirm">
+                            </div>
+                        </div>
+                        <button class="btn btn-success btn-block" type="submit">Speichern</button>
                     </form>
-                </header>
-            </article>
+                </div>
+            </div>
         </div>
-        <div>
+        <div class="col-md">
             <h3>Liste der Kunden</h3>
-            <article th:each="customer : ${customers}" class="card">
-                <header>
-                    <button disabled th:text="${customer.getFirstName() + ' ' + customer.getLastName()}"></button>
-                    <button disabled th:text="${customer.getLoginName()}"></button>
-                    <a style="float: right" class="button warning" th:href="@{/customer/{id}/info(id=${customer.getId()})}">Ändern</a>
-                    <br>
-                </header>
-            </article>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:if="${customers.isEmpty()}">
+                        <h5>noch keine Nutzer</h5>
+                    </li>
+                    <li th:each="customer : ${customers}" class="list-group-item">
+                        <button type="button" disabled class="btn btn-link">
+                            <span th:text="${customer.getFirstName() + ' ' + customer.getLastName()}">First and Last Name</span>
+                        </button>
+                        <button type="button" disabled class="btn btn-link">
+                            <span th:text="${'(' + customer.getLoginName() + ')'}">Login Name</span>
+                        </button>
+                        <a type="button" th:href="@{/customer/{id}/info(id=${customer.getId()})}" class="btn btn-link float-right">Ändern</a>
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 
+    <br>
+    <br>
 </div>
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>

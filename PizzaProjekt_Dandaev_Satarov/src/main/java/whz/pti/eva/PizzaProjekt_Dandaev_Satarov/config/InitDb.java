@@ -56,6 +56,18 @@ public class InitDb {
         pizzaService.addPizza(napoli);
         pizzaService.addPizza(peperoni);
 
+//        CustomerDto admin = new CustomerDto();
+//        admin.setId("21rsfjd73-adminidns-89nfer7fh-f4uiu4383");
+//        admin.setFirstName("Admin");
+//        admin.setLastName("Adminovic");
+//        admin.setLoginName("admin");
+//        admin.setPasswordHash(passwordEncoder.encode("admin"));
+//
+//        UserDto adminDto = new UserDto();
+//        adminDto.setCustomerDto(admin);
+//        adminDto.setRole(Role.USER);
+//        userService.create(adminDto);
+
         CustomerDto sam = new CustomerDto();
         sam.setFirstName("Sam");
         sam.setLastName("Smith");

@@ -4,105 +4,139 @@
     <title>Info</title>
     <head th:include="fragments/header :: head"></head>
 </head>
-<body style="background-color: #eee">
+<body>
 
 <div class="container">
 
-    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+    <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
 
-    <nav th:replace="fragments/nav :: nav (txt)"></nav>
-
-    <nav class="demo imponent">
-        <a href="#" class="brand">
-            <img class="logo" th:src="@{/img/logo.png}" />
-            <span>PizzaForever-App</span>
-        </a>
-
-        <input id="bmenub" type="checkbox" class="show">
-        <label for="bmenub" class="burger pseudo button">menu</label>
-
-        <div class="menu">
-            <a th:href="@{/customer/all}" class="pseudo button">Customers</a>
-            <a class="pseudo button">Auswahl</a>
-            <a class="pseudo button">einloggen</a>
-        </div>
-    </nav>
+    <nav th:replace="fragments/nav :: nav (links=${ {
+        {name:'Liste', url:'/customer/all', active:''},
+        {name:'Auslogen', url:'/logout', active:''}
+    }})"></nav>
 
     <br>
 
-    <div class="flex two-500">
-        <div>
+    <div class="row">
+        <div class="col-md">
             <h3>Customerdaten</h3>
-            <article class="card">
-                <header>
+            <div class="card">
+                <div class="card-body">
                     <form id="updateForm" th:action="@{/customer/{id}/update(id=${customer.getId()})}" method="post" role="form" th:object="${customerUpdateForm}">
-                        <fieldset>
-                            <input type="hidden" name="id" th:value="${customer.getId()}">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="text" placeholder="First Name" name="firstName" th:value="${customer.getFirstName()}">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="text" placeholder="Last Name" name="lastName" th:value="${customer.getLastName()}">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="text" placeholder="Login Name" name="loginName" th:value="${customer.getLoginName()}">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="password" placeholder="Password New" name="passwordNew" th:value="${customer.getPasswordHash()}">
-                        </fieldset>
-                        <br>
-                        <fieldset>
-                            <input type="password" placeholder="Password Confirm" name="passwordConfirm" th:value="${customer.getPasswordHash()}">
-                        </fieldset>
-                        <br>
-                        <fieldset class="flex three-500">
-                            <label class="two-third-500">
-                                <button form="updateForm" type="submit">Customerdaten aktualisieren</button>
-                            </label>
-                            <label class="third-500">
-                                <button type="submit" form="deleteForm" class="error" style="float: right">Entfernen</button>
-                            </label>
-                        </fieldset>
+                        <input type="hidden" class="form-control" name="id" th:value="${customer.getId()}">
+                        <div class="form-group row">
+                            <label for="inputFirstName" class="col-md-4 col-form-label">First Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="First Name" name="firstName" th:value="${customer.getFirstName()}" id="inputFirstName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputLastName" class="col-md-4 col-form-label">Last Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="Last Name" name="lastName" th:value="${customer.getLastName()}" id="inputLastName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputLoginName" class="col-md-4 col-form-label">Login Name</label>
+                            <div class="col-md-8">
+                                <input type="text" class="form-control" placeholder="Login Name" name="loginName" th:value="${customer.getLoginName()}" id="inputLoginName">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPasswordNew" class="col-md-4 col-form-label">Password New</label>
+                            <div class="col-md-8">
+                                <input type="password" class="form-control" placeholder="Password New" name="passwordNew" th:value="${customer.getPasswordHash()}" id="inputPasswordNew">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <label for="inputPasswordConfirm" class="col-md-4 col-form-label">Password Confirm</label>
+                            <div class="col-md-8">
+                                <input type="password" class="form-control" placeholder="Password Confirm" name="passwordConfirm" th:value="${customer.getPasswordHash()}" id="inputPasswordConfirm">
+                            </div>
+                        </div>
+                        <div class="form-group row">
+                            <div class="col-md-8">
+                                <button form="updateForm" class="btn btn-primary btn-block" type="submit">Customerdaten aktualisieren</button>
+                            </div>
+                            <div class="col-md-4">
+                                <button type="submit" form="deleteForm" class="btn btn-danger btn-block">Entfernen</button>
+                            </div>
+                        </div>
                     </form>
                     <form id="deleteForm" method="post" th:action="@{/customer/{id}/delete(id=${customer.getId()})}"></form>
-                </header>
-            </article>
-        </div>
-        <div>
-            <h3>Addressen</h3>
-            <div>
-                <form method="post" th:action="@{/deliveryaddress/create}" th:object="${deliveryAddressCreateForm}">
-                    <input type="text" class="stack" placeholder="Street" name="street"/>
-                    <input type="text" class="stack" placeholder="House" name="houseNumber"/>
-                    <input type="text" class="stack" placeholder="Town" name="town"/>
-                    <input type="text" class="stack" placeholder="Plz" name="postalCode"/>
-                    <input type="hidden" name="customerId" th:value="${customer.getId()}">
-                    <button class="stack success">neue Adresse hinzufügen</button>
-                </form>
-                <br>
+                </div>
             </div>
-            <div th:each="address : ${addresses}">
-                <form method="post" th:action="@{/deliveryaddress/update}" th:object="${deliveryAddressUpdateForm}">
-                    <input type="hidden" name="id" th:value="${address.getId()}">
-                    <input type="text" class="stack" placeholder="Street" name="street" th:value="${address.getStreet()}"/>
-                    <input type="text" class="stack" placeholder="House" name="houseNumber" th:value="${address.getHouseNumber()}"/>
-                    <input type="text" class="stack" placeholder="Town" name="town" th:value="${address.getTown()}"/>
-                    <input type="text" class="stack" placeholder="Plz" name="postalCode" th:value="${address.getPostalCode()}"/>
-                    <button class="stack">Daten dieser Adresse aktualisieren</button>
-                    <button type="submit" form="deleteAddressForm" class="button stack error">diese Adresse löschen</button>
-                </form>
-                <form id="deleteAddressForm" method="post" th:action="@{/deliveryaddress/delete/{id}(id=${address.getId()})}"></form>
-                <br>
+        </div>
+        <div class="col-md">
+            <h3>Addressen</h3>
+            <div class="card">
+                <div class="card-body">
+                    <form method="post" th:action="@{/deliveryaddress/create}" th:object="${deliveryAddressCreateForm}">
+                        <div class="form-row">
+                            <div class="form-group col-md-9">
+                                <input type="text" class="form-control" placeholder="Street" name="street"/>
+                            </div>
+                            <div class="form-group col-md-3">
+                                <input type="text" class="form-control" placeholder="House" name="houseNumber"/>
+                            </div>
+                        </div>
+                        <div class="form-row">
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Town" name="town"/>
+                            </div>
+                            <div class="form-group col-md-6">
+                                <input type="text" class="form-control" placeholder="Plz" name="postalCode"/>
+                            </div>
+                        </div>
+                        <input type="hidden" name="customerId" th:value="${customer.getId()}">
+                        <button class="btn btn-success btn-block" type="submit">neue Adresse hinzufügen</button>
+                    </form>
+                </div>
+            </div>
+            <br>
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:if="${addresses.isEmpty()}">
+                        <h5 class="text-center">noch keine Adresse</h5>
+                    </li>
+                    <li class="list-group-item" th:each="address : ${addresses}">
+                        <form method="post" th:action="@{/deliveryaddress/update}" th:object="${deliveryAddressUpdateForm}">
+                            <input type="hidden" name="id" th:value="${address.getId()}">
+                            <div class="form-row">
+                                <div class="form-group col-md-9">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Street" name="street" th:value="${address.getStreet()}"/>
+                                </div>
+                                <div class="form-group col-md-3">
+                                    <input type="text" class="form-control form-control-sm" placeholder="House" name="houseNumber" th:value="${address.getHouseNumber()}"/>
+                                </div>
+                            </div>
+                            <div class="form-row">
+                                <div class="form-group col-md-8">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Town" name="town" th:value="${address.getTown()}"/>
+                                </div>
+                                <div class="form-group col-md-4">
+                                    <input type="text" class="form-control form-control-sm" placeholder="Plz" name="postalCode" th:value="${address.getPostalCode()}"/>
+                                </div>
+                            </div>
+                            <div class="form-group row">
+                                <div class="col-md-7">
+                                    <button class="btn btn-primary btn-block btn-sm" type="submit">Daten dieser Adresse aktualisieren</button>
+                                </div>
+                                <div class="col-md-5">
+                                    <button type="submit" form="deleteAddressForm" class="btn btn-danger btn-block btn-sm">diese Adresse löschen</button>
+                                </div>
+                            </div>
+                        </form>
+                        <form id="deleteAddressForm" method="post" th:action="@{/deliveryaddress/delete/{id}(id=${address.getId()})}"></form>
+                    </li>
+                </ul>
             </div>
         </div>
     </div>
-
 </div>
+
+<br>
+
 <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

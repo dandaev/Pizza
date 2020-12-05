@@ -13,19 +13,19 @@ public class CustomerUpdateForm {
     private String firstName;
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 24)
+    @Size(min = 2, max = 18)
     private String lastName;
     @NotNull
     @NotEmpty
-    @Size(min = 6, max = 18)
+    @Size(min = 4, max = 18)
     private String loginName;
     @NotNull
     @NotEmpty
-    @Size(min = 8, max = 24)
+    @Size(min = 4)
     private String passwordNew;
     @NotNull
     @NotEmpty
-    @Size(min = 8, max = 24)
+    @Size(min = 4)
     private String passwordConfirm;
 
     public String getId() {
