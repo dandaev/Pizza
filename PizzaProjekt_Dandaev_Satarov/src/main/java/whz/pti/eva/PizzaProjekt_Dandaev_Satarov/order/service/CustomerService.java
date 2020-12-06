@@ -6,6 +6,7 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
 import java.util.List;
 
 public interface CustomerService {
+    Customer getCustomerNotDtoById(String id);
     CustomerDto getCustomerById(String id);
     List<CustomerDto> getAllCustomers();
     boolean existsById(String id);

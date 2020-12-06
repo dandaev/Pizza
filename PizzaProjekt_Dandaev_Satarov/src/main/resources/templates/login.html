@@ -5,38 +5,44 @@
     <head th:include="fragments/header :: head"></head>
 </head>
 <body>
-    <div class="container">
-        <div class="row justify-content-md-center align-items-center mt-5">
-            <div class="col-md-4">
-                <div class="card">
-                    <div class="card-body">
-                        <form th:action="@{/login}" method="post">
-                            <div class="text-success" th:if="${param.logout}">
-                                <div class="alert alert-info">You have been logged out.</div>
-                                <br>
-                            </div>
-                            <div class="form-group">
-                                <label for="loginName">Your Login Name</label>
-                                <input type="text" class="form-control" name="loginName" id="loginName" placeholder="login" required autofocus>
-                            </div>
-                            <div class="form-group">
-                                <label for="password">Your Password</label>
-                                <input type="password" class="form-control" name="password" id="password" placeholder="password" required>
-                            </div>
-                            <div class="form-group form-check">
-                                <input type="checkbox" class="form-check-input" name="remember-me" id="rememberCheck">
-                                <label class="form-check-label" for="rememberCheck">Remember me</label>
-                            </div>
-                            <button type="submit" class="btn btn-primary btn-block">Einlogen</button>
-                            <div class="text-danger" th:if="${param.error}">
-                                <span>Login oder passwort ist falsch, bitte nochmal versuchen!</span>
-                            </div>
-                        </form>
-                    </div>
+<div class="container">
+    <div class="row justify-content-md-center align-items-center mt-5">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <form th:action="@{/login}" method="post">
+                        <div class="text-success" th:if="${param.logout}">
+                            <div class="alert alert-info">You have been logged out.</div>
+                            <br>
+                        </div>
+                        <div class="form-group">
+                            <label for="loginName">Your Login Name</label>
+                            <input type="text" class="form-control" name="loginName" id="loginName" placeholder="login"
+                                   required autofocus>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Your Password</label>
+                            <input type="password" class="form-control" name="password" id="password"
+                                   placeholder="password" required>
+                        </div>
+                        <div class="form-group form-check">
+                            <input type="checkbox" class="form-check-input" name="remember-me" id="rememberCheck">
+                            <label class="form-check-label" for="rememberCheck">Remember me</label>
+                        </div>
+                        <button type="submit" class="btn btn-primary btn-block">Einlogen</button>
+                        <div class="form-group">
+                            <label for="link" class="text-secondary">Haben Sie keinen Account?</label>
+                            <a th:href="@{/register}" class="badge badge-light" id="link">Registrierung</a>
+                        </div>
+                        <div class="text-danger" th:if="${param.error}">
+                            <span>Login oder passwort ist falsch, bitte nochmal versuchen!</span>
+                        </div>
+                    </form>
                 </div>
             </div>
         </div>
     </div>
-    <footer th:replace="fragments/footer :: footer"></footer>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

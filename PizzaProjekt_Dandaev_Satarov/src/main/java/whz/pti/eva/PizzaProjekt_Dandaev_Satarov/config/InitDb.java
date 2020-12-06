@@ -5,19 +5,26 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Component;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.Customer;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.DeliveryAddressService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.DeliveryAddressDto;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.Role;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.User;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.UserService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.dto.UserDto;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Cart;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.CartService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
 
 import javax.annotation.PostConstruct;
 import javax.transaction.Transactional;
 import java.math.BigDecimal;
+import java.util.HashMap;
 
 @Component
 public class InitDb {
@@ -27,14 +34,16 @@ public class InitDb {
     private final CustomerService customerService;
     private final DeliveryAddressService deliveryAddressService;
     private final UserService userService;
+    private final CartService cartService;
     private final PasswordEncoder passwordEncoder;
 
     @Autowired
-    public InitDb(PizzaService pizzaService, CustomerService customerService, DeliveryAddressService deliveryAddressService, UserService userService, PasswordEncoder passwordEncoder) {
+    public InitDb(PizzaService pizzaService, CustomerService customerService, DeliveryAddressService deliveryAddressService, UserService userService, CartService cartService, PasswordEncoder passwordEncoder) {
         this.pizzaService = pizzaService;
         this.customerService = customerService;
         this.deliveryAddressService = deliveryAddressService;
         this.userService = userService;
+        this.cartService = cartService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -79,7 +88,7 @@ public class InitDb {
         klopp.setFirstName("Jurgen");
         klopp.setLastName("Klopp");
         klopp.setLoginName("jurgenklopp");
-        klopp.setPasswordHash(passwordEncoder.encode("secfutret"));
+        klopp.setPasswordHash(passwordEncoder.encode("jurgenklopp"));
         klopp = customerService.create(klopp);
 
         UserDto samDto = new UserDto();
@@ -90,7 +99,22 @@ public class InitDb {
         UserDto kloppUser = new UserDto();
         kloppUser.setCustomerDto(klopp);
         kloppUser.setRole(Role.USER);
-        userService.create(kloppUser);
+        User u = userService.create(kloppUser);
+
+        Cart kloppCart = new Cart();
+        kloppCart.setItems(new HashMap<>());
+        kloppCart.setQuantity(0);
+//        Customer klop = new Customer(klopp.getFirstName(),klopp.getLastName(),klopp.getLoginName(),klopp.getPasswordHash());
+//        klop.setId(klopp.getId());
+        kloppCart.setUser(customerService.getCustomerNotDtoById(klopp.getId()));
+        cartService.create(kloppCart);
+
+        Item item = new Item(margarita,2, PizzaSize.Large);
+        Item item1 = new Item(spinat,2, PizzaSize.Large);
+
+        cartService.addItemToCart(klopp.getId(),item);
+        cartService.addItemToCart(klopp.getId(),item1);
+
 
         DeliveryAddressDto da = new DeliveryAddressDto();
         da.setStreet("Innere Schneeberger Str");

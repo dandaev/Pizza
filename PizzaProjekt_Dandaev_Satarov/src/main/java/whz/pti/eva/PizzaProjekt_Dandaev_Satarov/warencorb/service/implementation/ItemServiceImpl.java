@@ -21,13 +21,12 @@ public class ItemServiceImpl implements ItemService {
     }
 
     @Override
-    public boolean createItem(Item item) {
+    public Item createItem(Item item) {
         try {
-            itemRepository.save(item);
-            return true;
+            return itemRepository.save(item);
         }catch (Exception e){
             LOGGER.error("CREATE: Item not created");
-            return false;
+            return null;
         }
     }
 
@@ -55,7 +54,7 @@ public class ItemServiceImpl implements ItemService {
     public Item deleteItemById(String id) {
         Item item = itemRepository.getItemById(id);
         if (item == null){
-            LOGGER.error("DELETE: Item mit id: "+ item.getId()+" nicht existiert");
+            LOGGER.error("DELETE: Item mit id: "+id+" nicht existiert");
             return null;
         }
         itemRepository.delete(item);

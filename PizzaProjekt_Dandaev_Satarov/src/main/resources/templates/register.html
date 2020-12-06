@@ -32,8 +32,12 @@
                             <input type="password" class="form-control" placeholder="Password Confirm" name="passwordConfirm" id="inputPasswordConfirm">
                         </div>
                         <button type="submit" class="btn btn-primary btn-block">Registrieren</button>
-                        <div class="text-danger" th:if="${param.error}">
-                            <span>Login oder passwort ist falsch, bitte nochmal versuchen!</span>
+                        <div class="form-group">
+                            <label for="link" class="text-secondary">Haben Sie Account?</label>
+                            <a th:href="@{/login}" class="badge badge-light" id="link">Einlogen</a>
+                        </div>
+                        <div class="text-danger" th:each="error:${errors}">
+                            <span th:text="${error}"></span>
                         </div>
                     </form>
                 </div>

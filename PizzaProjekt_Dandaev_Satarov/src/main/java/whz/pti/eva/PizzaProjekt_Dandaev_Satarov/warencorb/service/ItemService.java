@@ -6,7 +6,8 @@ import java.util.List;
 
 public interface ItemService {
 
-    boolean createItem(Item item);
+    Item createItem(Item item);
+
 
     Item getItemById(String id);
     List<Item> getItemListByPizzaId(String pizzaId);

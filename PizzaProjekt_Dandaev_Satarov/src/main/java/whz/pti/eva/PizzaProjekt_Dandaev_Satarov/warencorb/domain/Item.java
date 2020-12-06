@@ -47,7 +47,6 @@ public class Item extends BaseEntity<String> {
         this.size = size;
     }
 
-
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,6 +57,7 @@ public class Item extends BaseEntity<String> {
                 Objects.equals(pizza, item.pizza) &&
                 size == item.size;
     }
+
 
     @Override
     public int hashCode() {

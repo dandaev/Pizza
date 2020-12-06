@@ -7,23 +7,23 @@ import javax.validation.constraints.Size;
 public class CustomerCreateForm {
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 18)
+    @Size(min = 1, max = 18)
     private String firstName;
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 24)
+    @Size(min = 1, max = 24)
     private String lastName;
     @NotNull
     @NotEmpty
-    @Size(min = 6, max = 18)
+    @Size(min = 3, max = 18)
     private String loginName;
     @NotNull
     @NotEmpty
-    @Size(min = 8, max = 24)
+    @Size(min = 5)
     private String passwordNew;
     @NotNull
     @NotEmpty
-    @Size(min = 8, max = 24)
+    @Size(min = 5)
     private String passwordConfirm;
 
     public String getFirstName() {

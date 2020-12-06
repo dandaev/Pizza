@@ -22,6 +22,11 @@ public class CustomerServiceImpl implements CustomerService {
     }
 
     @Override
+    public Customer getCustomerNotDtoById(String id) {
+        return customerRepository.getCustomerById(id);
+    }
+
+    @Override
     public CustomerDto getCustomerById(String id) {
         Customer customer = customerRepository.getOne(id);
         return toDto(customer);

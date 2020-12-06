@@ -6,4 +6,6 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Cart;
 
 @Repository
 public interface CartRepository extends JpaRepository<Cart, String> {
+    Cart getCartByUserId(String id);
+    boolean existsByUserId(String id);
 }

@@ -3,26 +3,30 @@ package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.BaseEntity;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.domain.Customer;
 
-import javax.persistence.Entity;
-import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
+import javax.persistence.*;
 import java.util.Map;
 
 @Entity
 public class Cart extends BaseEntity<String> {
     private int quantity;
-    @OneToMany
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @JoinTable(name = "cart_items",
+            joinColumns = {@JoinColumn(name = "cart_id", referencedColumnName = "id")},
+            inverseJoinColumns = {@JoinColumn(name = "item_id", referencedColumnName = "id")})
+    @MapKey(name = "id")
+//    @OnDelete(action = OnDeleteAction.CASCADE)
     private Map<String, Item> items;
+
     @OneToOne
-    private Customer userId;
+    private Customer user;
 
     public Cart() {
     }
 
-    public Cart(int quantity, Map<String, Item> items, Customer userId) {
+    public Cart(int quantity, Map<String, Item> items, Customer user) {
         this.quantity = quantity;
         this.items = items;
-        this.userId = userId;
+        this.user = user;
     }
 
     public int getQuantity() {
@@ -41,11 +45,11 @@ public class Cart extends BaseEntity<String> {
         this.items = items;
     }
 
-    public Customer getUserId() {
-        return userId;
+    public Customer getUser() {
+        return user;
     }
 
-    public void setUserId(Customer userId) {
-        this.userId = userId;
+    public void setUser(Customer user) {
+        this.user = user;
     }
 }

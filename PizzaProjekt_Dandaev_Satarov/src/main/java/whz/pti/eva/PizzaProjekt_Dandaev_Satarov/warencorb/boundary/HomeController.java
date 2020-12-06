@@ -18,6 +18,7 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.CurrentUser;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.CartIsNotLoggedIn;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.CartService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.form.ItemCreateForm;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.validator.ItemCreateFormValidator;
@@ -25,7 +26,6 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.validator.Item
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
-import java.awt.*;
 
 @Controller
 public class HomeController {
@@ -34,14 +34,16 @@ public class HomeController {
 
     private final PizzaService pizzaService;
     private final CustomerService customerService;
+    private final CartService cartService;
 
     private final CartIsNotLoggedIn cartIsNotLoggedIn;
     private final ItemCreateFormValidator itemCreateFormValidator;
 
     @Autowired
-    public HomeController(PizzaService pizzaService, CustomerService customerService, CartIsNotLoggedIn cartIsNotLoggedIn, ItemCreateFormValidator itemCreateFormValidator) {
+    public HomeController(PizzaService pizzaService, CustomerService customerService, CartService cartService, CartIsNotLoggedIn cartIsNotLoggedIn, ItemCreateFormValidator itemCreateFormValidator) {
         this.pizzaService = pizzaService;
         this.customerService = customerService;
+        this.cartService = cartService;
         this.cartIsNotLoggedIn = cartIsNotLoggedIn;
         this.itemCreateFormValidator = itemCreateFormValidator;
     }
@@ -57,12 +59,14 @@ public class HomeController {
             CurrentUser currentUser = (CurrentUser) model.asMap().get("currentUser");
             if (currentUser != null) {
                 CustomerDto customerDto = customerService.getCustomerById(currentUser.getCustomerId());
-                String userFullName = customerDto.getFirstName() + " " + customerDto.getLastName();
-                String loginName = CurrentUserUtil.getCurrentUser(model);
-                model.addAttribute("userFullName", userFullName);
+                model.addAttribute("currentCustommer", customerDto);
+                model.addAttribute("countInWarencorb", cartService.getCommonCount(currentUser.getCustomerId()));
+                model.addAttribute("commonPriceInWarencorb", cartService.getCommonPrice(currentUser.getCustomerId()));
             }
-            model.addAttribute("countInWarencorb", cartIsNotLoggedIn.getCount());
-            model.addAttribute("commonPriceInWarencorb", cartIsNotLoggedIn.getCommonPrice());
+            else {
+                model.addAttribute("countInWarencorb", cartIsNotLoggedIn.getCount());
+                model.addAttribute("commonPriceInWarencorb", cartIsNotLoggedIn.getCommonPrice());
+            }
             model.addAttribute("pizzas", pizzaService.getPizzaList());
         } catch (NullPointerException e) {
             LOGGER.warn(e.getMessage());
@@ -84,11 +88,12 @@ public class HomeController {
         LOGGER.debug(form.getPizza());
         try {
             CurrentUser currentUser = (CurrentUser) model.asMap().get("currentUser");
+            Pizza pizza = pizzaService.getPizzaById(form.getPizza());
             if (currentUser == null) {
-                Pizza pizza = pizzaService.getPizzaById(form.getPizza());
                 cartIsNotLoggedIn.addItem(new Item(pizza,form.getQuantity(),form.getSize()));
             } else {
-                System.out.println(currentUser.getLoginName());
+                Item item = new Item(pizza,form.getQuantity(), form.getSize());
+                cartService.addItemToCart(currentUser.getCustomerId(),item);
             }
         } catch (NullPointerException e) {
             LOGGER.warn(e.getMessage());
@@ -102,6 +107,6 @@ public class HomeController {
         if (auth != null) {
             new SecurityContextLogoutHandler().logout(request, response, auth);
         }
-        return "logout"; //You can redirect wherever you want, but generally it's a good practice to show login screen again.
+        return "redirect:/";
     }
 }

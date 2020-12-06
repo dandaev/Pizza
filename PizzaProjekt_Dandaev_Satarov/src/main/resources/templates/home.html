@@ -32,13 +32,13 @@
                 <tr th:each="pizza:${pizzas}">
                     <form th:action="@{/indenwarencorb}" method="post" role="form" th:object="${itemCreateForm}">
                         <td>
-                            <input class="form-control" name="quantity" type="number" placeholder="Menge" value="0" pattern="^[\d]$">
+                            <input class="form-control" name="quantity" type="number" placeholder="Menge" value="1" pattern="^[\d]$">
                         </td>
                         <td>
                             <input type="text" class="form-control" readonly th:value="${pizza.getName()}" disabled>
                         </td>
                         <td>
-                            <select class="custom-select" name="pizza">
+                            <select class="custom-select" name="size">
                                 <option th:text="${'Medium / '+pizza.getPriceMedium()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"></option>
                                 <option th:text="${'Large / '+pizza.getPriceLarge()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"></option>
                                 <option th:text="${'Small / '+pizza.getPriceSmall()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"></option>

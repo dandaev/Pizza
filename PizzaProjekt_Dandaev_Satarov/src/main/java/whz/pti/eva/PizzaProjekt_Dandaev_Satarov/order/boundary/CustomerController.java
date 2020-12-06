@@ -16,12 +16,14 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.CustomerUpdat
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator.CustomerCreateFormValidator;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator.CustomerUpdateFormValidator;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.Role;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.User;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.UserService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.dto.UserDto;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Cart;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.CartService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
+import java.util.HashMap;
 import java.util.List;
 
 @Controller
@@ -31,16 +33,18 @@ public class CustomerController {
     private final CustomerService customerService;
     private final UserService userService;
     private final DeliveryAddressService deliveryAddressService;
+    private final CartService cartService;
     private final PasswordEncoder passwordEncoder;
 
     private final CustomerCreateFormValidator customerCreateFormValidator;
     private final CustomerUpdateFormValidator customerUpdateFormValidator;
 
     @Autowired
-    public CustomerController(CustomerService customerService, UserService userService, DeliveryAddressService deliveryAddressService, PasswordEncoder passwordEncoder, CustomerCreateFormValidator customerCreateFormValidator, CustomerUpdateFormValidator customerUpdateFormValidator) {
+    public CustomerController(CustomerService customerService, UserService userService, DeliveryAddressService deliveryAddressService, CartService cartService, PasswordEncoder passwordEncoder, CustomerCreateFormValidator customerCreateFormValidator, CustomerUpdateFormValidator customerUpdateFormValidator) {
         this.customerService = customerService;
         this.userService = userService;
         this.deliveryAddressService = deliveryAddressService;
+        this.cartService = cartService;
         this.passwordEncoder = passwordEncoder;
         this.customerCreateFormValidator = customerCreateFormValidator;
         this.customerUpdateFormValidator = customerUpdateFormValidator;
@@ -87,6 +91,12 @@ public class CustomerController {
         userDto.setCustomerDto(customerDto);
         userDto.setRole(Role.USER);
         userService.create(userDto);
+
+        Cart cart = new Cart();
+        cart.setUser(customerService.getCustomerNotDtoById(customerDto.getId()));
+        cart.setQuantity(0);
+        cart.setItems(new HashMap<>());
+        cartService.create(cart);
 
         return "redirect:" + referer;
     }

@@ -24,6 +24,7 @@
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item" th:each="item:${items}">
                         <form method="post" th:action="@{decreasecount}" class="d-inline-block">
+                            <input th:if="${currentUser!= null}" type="hidden" th:name="id" th:value="${item.getId()}">
                             <input type="hidden" th:name="pizza" th:value="${item.getPizza().getId()}">
                             <input type="hidden" th:name="quantity" th:value="${item.getQuantity()}">
                             <input type="hidden" th:name="size" th:value="${item.getSize()}">
@@ -32,6 +33,7 @@
                         </form>
                         <button class="btn btn-link btn-lg" disabled th:text="${item.getQuantity()}">Quantity</button>
                         <form method="post" th:action="@{increasecount}" class="d-inline-block">
+                            <input th:if="${currentUser!= null}" type="hidden" th:name="id" th:value="${item.getId()}">
                             <input type="hidden" th:name="pizza" th:value="${item.getPizza().getId()}">
                             <input type="hidden" th:name="quantity" th:value="${item.getQuantity()}">
                             <input type="hidden" th:name="size" th:value="${item.getSize()}">
@@ -53,9 +55,10 @@
                         </button>
 
                         <form method="post" th:action="@{deleteitem}" th:object="${itemCreateForm}" class="d-inline-block float-right">
-                            <input type="hidden" th:name="deletedItemPizzaId" th:value="${item.getPizza().getId()}">
-                            <input type="hidden" th:name="deletedItemQuantity" th:value="${item.getQuantity()}">
-                            <input type="hidden" th:name="deletedItemPizzaSize" th:value="${item.getSize()}">
+                            <input th:if="${currentUser!= null}" type="hidden" th:name="id" th:value="${item.getId()}">
+                            <input type="hidden" th:name="pizza" th:value="${item.getPizza().getId()}">
+                            <input type="hidden" th:name="quantity" th:value="${item.getQuantity()}">
+                            <input type="hidden" th:name="size" th:value="${item.getSize()}">
                             <button class="btn btn-danger" type="submit">Delete</button>
                         </form>
                     </li>
