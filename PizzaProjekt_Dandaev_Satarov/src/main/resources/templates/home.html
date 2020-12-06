@@ -6,81 +6,63 @@
 </head>
 <body>
 
-<div class="container">
-    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
+    <div class="container">
 
-    <nav th:replace="fragments/nav :: nav (txt)"></nav>
+        <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
 
-    <nav class="demo imponent">
-        <a href="#" class="brand">
-            <img class="logo" th:src="@{/img/logo.png}"/>
-            <span>PizzaForever-App</span>
-        </a>
+        <nav th:replace="fragments/nav :: nav (links=${ {
+            {name:'Auswahl', url:'/', active:'active'},
+            {name:'Warencorb', url:'/warencorb', active:''},
+            {name:'Einlogen', url:'/login', active:''},
+            {name:'Registrieren', url:'/register', active:''}
+        }})"></nav>
 
-        <input id="bmenub" type="checkbox" class="show">
-        <label for="bmenub" class="burger pseudo button">menu</label>
-        <label th:if="${userFullName!= null}" th:text="${userFullName + '0'}"></label>
+        <br>
 
-        <div class="menu">
-            <a class="pseudo button">Auswahl</a>
-            <a class="pseudo button" th:href="@{'/login'}">einloggen</a>
-        </div>
-    </nav>
+        <table class="table table-borderless">
+            <thead>
+                <tr>
+                    <th scope="col" class="text-center">Menge</th>
+                    <th scope="col" class="text-center">Pizza</th>
+                    <th scope="col" class="text-center">Preis+Größe</th>
+                    <th scope="col" class="text-center">in den Warenkorb</th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr th:each="pizza:${pizzas}">
+                    <form th:action="@{/indenwarencorb}" method="post" role="form" th:object="${itemCreateForm}">
+                        <td>
+                            <input class="form-control" name="quantity" type="number" placeholder="Menge" value="0" pattern="^[\d]$">
+                        </td>
+                        <td>
+                            <input type="text" class="form-control" readonly th:value="${pizza.getName()}" disabled>
+                        </td>
+                        <td>
+                            <select class="custom-select" name="pizza">
+                                <option th:text="${'Medium / '+pizza.getPriceMedium()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"></option>
+                                <option th:text="${'Large / '+pizza.getPriceLarge()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"></option>
+                                <option th:text="${'Small / '+pizza.getPriceSmall()}" th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"></option>
+                            </select>
+                        </td>
+                        <td>
+                            <input type="hidden" name="pizza" th:value="${pizza.getId()}">
+                            <button class="btn btn-outline-secondary btn-block" type="submit" >in den Warenkorb</button>
+                        </td>
+                    </form>
+                </tr>
+            </tbody>
+        </table>
 
-    <br>
+        <br>
 
-    <table class="primary">
-        <thead>
-        <tr>
-            <th class="secondary-color">Menge</th>
-            <th class="secondary-color">Pizza</th>
-            <th class="secondary-color">Preis+Größe</th>
-            <th class="secondary-color">in den Warenkorb</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr th:each="pizza:${pizzas}">
-            <form th:action="@{/indenwarencorb}" method="post" role="form" th:object="${itemCreateForm}">
-                <td>
-                    <input name="quantity" type="number" value="1" th:valuetype="Integer"  pattern="^[\d]$">
-                </td>
-                <td th:text="${pizza.getName()}">Pizza Name</td>
-                <td>
-                    <select name="size">
-                        <option th:text="${'Medium / '+pizza.getPriceMedium()}"
-                                th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"></option>
-                        <option th:text="${'Large / '+pizza.getPriceLarge()}"
-                                th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"></option>
-                        <option th:text="${'Small / '+pizza.getPriceSmall()}"
-                                th:value="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"></option>
-                    </select>
-                </td>
-                <td>
-                    <fieldset>
-                        <input type="hidden" name="pizza" th:value="${pizza.getId()}" th:valuetype="pizza">
-                    </fieldset>
-                    <button class="myCoolButton" type="submit">in den Warenkorb</button>
-                </td>
-            </form>
-            <br>
-            <a><span class="error text-danger"
-                     th:if="${error != null}" th:text="${error}">The email or password
-						you have entered is invalid, try again.</span></a>
-        </tr>
-        </tbody>
-    </table>
-
-    <br>
-
-    <small>
-        IM WARENKORB ::: Anzahl der bestellten Pizzas:
-        <!--            <span th:text="${warenCorb.size()}"></span>-->
-        <span th:text="${countInWarencorb}">0</span>
-        mit Gesamtbetrag:
-        <span th:text="${commonPriceInWarencorb+'€'}">0.00</span>
-    </small>
-    <a th:href="@{/warencorb}" class="button myCoolButton width-max">zum Warenkorb</a>
-</div>
-<footer th:replace="fragments/footer :: footer"></footer>
+        <p>
+            IM WARENKORB ::: Anzahl der bestellten Pizzas:
+            <span th:text="${countInWarencorb}">0</span>
+            mit Gesamtbetrag:
+            <span th:text="${commonPriceInWarencorb+'€'}">0.00</span>
+        </p>
+        <a th:href="@{/warencorb}" class="btn btn-light btn-block mb-5">zum Warenkorb</a>
+    </div>
+    <footer th:replace="fragments/footer :: footer"></footer>
 </body>
 </html>

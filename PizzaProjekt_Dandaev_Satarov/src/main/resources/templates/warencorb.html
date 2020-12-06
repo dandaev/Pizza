@@ -6,79 +6,69 @@
 </head>
 <body>
 <div class="container">
-    <h3 class="hallo">hallo :: was kann ich für dich tun?</h3>
 
-    <nav th:replace="fragments/nav :: nav (txt)"></nav>
+    <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
 
-    <nav class="demo imponent">
-        <a href="#" class="brand">
-            <img class="logo" th:src="@{/img/logo.png}"/>
-            <span>PizzaForever-App</span>
-        </a>
+    <nav th:replace="fragments/nav :: nav (links=${ {
+        {name:'Auswahl', url:'/', active:''},
+        {name:'Warencorb', url:'/warencorb', active:'active'},
+        {name:'Einlogen', url:'/login', active:''},
+        {name:'Registrieren', url:'/register', active:''}
+    }})"></nav>
 
-        <input id="bmenub" type="checkbox" class="show">
-        <label for="bmenub" class="burger pseudo button">menu</label>
+    <br>
 
-        <div class="menu">
-            <a class="pseudo button" th:href="@{/}">Auswahl</a>
-            <a class="pseudo button">einloggen</a>
+    <div class="row">
+        <div class="col-md-8">
+            <div class="card">
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item" th:each="item:${items}">
+                        <form method="post" th:action="@{decreasecount}" class="d-inline-block">
+                            <input type="hidden" th:name="pizza" th:value="${item.getPizza().getId()}">
+                            <input type="hidden" th:name="quantity" th:value="${item.getQuantity()}">
+                            <input type="hidden" th:name="size" th:value="${item.getSize()}">
+                            <button th:if="${item.getQuantity()>1}" class="badge badge-info" type="submit">-</button>
+                            <button th:unless="${item.getQuantity()>1}" disabled class="badge badge-info" type="submit">-</button>
+                        </form>
+                        <button class="btn btn-link btn-lg" disabled th:text="${item.getQuantity()}">Quantity</button>
+                        <form method="post" th:action="@{increasecount}" class="d-inline-block">
+                            <input type="hidden" th:name="pizza" th:value="${item.getPizza().getId()}">
+                            <input type="hidden" th:name="quantity" th:value="${item.getQuantity()}">
+                            <input type="hidden" th:name="size" th:value="${item.getSize()}">
+                            <button class="badge badge-info" type="submit">+</button>
+                        </form>
+
+                        <button class="btn btn-link btn-lg" disabled>
+                            <span th:text="${item.getPizza().getName()}">Pizza Name</span>
+                            <span class="badge badge-secondary" th:text="${item.getSize()}">Pizza Size</span>
+                        </button>
+
+                        <button class="btn btn-link btn-lg" disabled th:switch="${item.getSize()}">
+                            <span th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"
+                                th:text="${item.getPizza().getPriceLarge() + ' €'}"></span>
+                            <span th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"
+                                th:text="${item.getPizza().getPriceMedium() + ' €'}"></span>
+                            <span th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"
+                                th:text="${item.getPizza().getPriceSmall() + ' €'}"></span>
+                        </button>
+
+                        <form method="post" th:action="@{deleteitem}" th:object="${itemCreateForm}" class="d-inline-block float-right">
+                            <input type="hidden" th:name="deletedItemPizzaId" th:value="${item.getPizza().getId()}">
+                            <input type="hidden" th:name="deletedItemQuantity" th:value="${item.getQuantity()}">
+                            <input type="hidden" th:name="deletedItemPizzaSize" th:value="${item.getSize()}">
+                            <button class="btn btn-danger" type="submit">Delete</button>
+                        </form>
+                    </li>
+                </ul>
+            </div>
         </div>
-    </nav>
-    <br/>
-    <div class="flex four">
-        <div class="three-fourth">
-            <article class="card" th:each="item:${items}">
-                <header>
-                    <h2 th:text="${item.getPizza().getName()}"></h2>
-                    <span class="label" th:text="${item.getSize()}"></span>
-                </header>
-                <footer>
-                    <div class="flex three">
-                        <div th:switch="${item.getSize()}">
-                            <h4 th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Large}"
-                                th:text="${item.getPizza().getPriceLarge() + '€'}"></h4>
-                            <h4 th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Medium}"
-                                th:text="${item.getPizza().getPriceMedium() + '€'}"></h4>
-                            <h4 th:case="${T(whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize).Small}"
-                                th:text="${item.getPizza().getPriceSmall() + '€'}"></h4>
-                        </div>
-                        <div style="text-align: center">
-                            <form method="post" th:action="@{decreasecount}" class="dib">
-                                <input type="hidden" th:name="pizza" th:value="${item.getPizza().getId()}">
-                                <input type="hidden" th:name="quantity" th:value="${item.getQuantity()}">
-                                <input type="hidden" th:name="size" th:value="${item.getSize()}">
-                                <button th:if="${item.getQuantity()>1}" class="pseudo cool dib" type="submit"> -</button>
-                                <button th:unless="${item.getQuantity()>1}" disabled  type="submit"> -</button>
-                            </form>
-                            <h3 style="display: inline-block" th:text="${item.getQuantity()}"></h3>
-                            <form method="post" th:action="@{increasecount}" class="dib">
-                                <input type="hidden" th:name="pizza" th:value="${item.getPizza().getId()}">
-                                <input type="hidden" th:name="quantity" th:value="${item.getQuantity()}">
-                                <input type="hidden" th:name="size" th:value="${item.getSize()}">
-                                <button class="pseudo cool" type="submit"> +</button>
-                            </form>
-                        </div>
-                        <div>
-                            <form method="post" th:action="@{deleteitem}" th:object="${itemCreateForm}">
-                                <input type="hidden" name="pizza" th:value="${item.getPizza().getId()}">
-                                <input type="hidden" name="quantity" th:value="${item.getQuantity()}">
-                                <input type="hidden" name="size" th:value="${item.getSize()}">
-                                <button class="pseudo bad fr" type="submit">Delete</button>
-                            </form>
-                        </div>
-                    </div>
-                </footer>
-            </article>
-        </div>
-        <div class="common-price-card">
-            <article class="card">
-                <header>
-                    <h2 th:text="${'GesamtPreis: '+ commonPreis + '€'}"></h2>
-                </header>
-                <footer>
-                    <button class="stack myCoolButton">Bezahlen</button>
-                </footer>
-            </article>
+        <div class="col-md-4">
+            <div class="card position-sticky">
+                <div class="card-body">
+                    <h3 th:text="${'GesamtPreis: '+ commonPreis + '€'}">Gesamtpreis</h3>
+                    <a href="#" class="btn btn-success btn-block">Bezahlen</a>
+                </div>
+            </div>
         </div>
     </div>
 </div>
