@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.w3.org/1999/xhtml">
 <head>
     <title>Pizza Forever</title>
     <head th:include="fragments/header :: head"></head>
@@ -10,14 +10,26 @@
 
         <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
 
-        <nav th:replace="fragments/nav :: nav (links=${ {
+        <th:block th:if="${currentUser != null}">
+            <nav th:replace="fragments/nav :: nav (links=${ {
+            {name:currentUser.getLoginName(), url:'/', active:''},
+            {name:'Auswahl', url:'/', active:'active'},
+            {name:'Warencorb', url:'/warencorb', active:''},
+            {name:'Auslogen', url:'/logout', active:''}
+        }})"></nav>
+        </th:block>
+        <th:block th:if="${currentUser == null}">
+            <nav th:replace="fragments/nav :: nav (links=${ {
             {name:'Auswahl', url:'/', active:'active'},
             {name:'Warencorb', url:'/warencorb', active:''},
             {name:'Einlogen', url:'/login', active:''},
             {name:'Registrieren', url:'/register', active:''}
         }})"></nav>
+        </th:block>
 
         <br>
+
+<!--        <nav th:replace="fragments/nav :: nav (links=${new ArrayList<>()})"></nav>-->
 
         <table class="table table-borderless">
             <thead>

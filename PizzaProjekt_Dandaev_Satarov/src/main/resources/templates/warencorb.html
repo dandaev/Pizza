@@ -9,12 +9,22 @@
 
     <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
 
-    <nav th:replace="fragments/nav :: nav (links=${ {
-        {name:'Auswahl', url:'/', active:''},
-        {name:'Warencorb', url:'/warencorb', active:'active'},
-        {name:'Einlogen', url:'/login', active:''},
-        {name:'Registrieren', url:'/register', active:''}
-    }})"></nav>
+    <th:block th:if="${currentUser != null}">
+        <nav th:replace="fragments/nav :: nav (links=${ {
+            {name:currentUser.getLoginName(), url:'/', active:''},
+            {name:'Auswahl', url:'/', active:''},
+            {name:'Warencorb', url:'/warencorb', active:'active'},
+            {name:'Auslogen', url:'/logout', active:''}
+        }})"></nav>
+    </th:block>
+    <th:block th:if="${currentUser == null}">
+        <nav th:replace="fragments/nav :: nav (links=${ {
+            {name:'Auswahl', url:'/', active:''},
+            {name:'Warencorb', url:'/warencorb', active:'active'},
+            {name:'Einlogen', url:'/login', active:''},
+            {name:'Registrieren', url:'/register', active:''}
+        }})"></nav>
+    </th:block>
 
     <br>
 

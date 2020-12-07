@@ -11,6 +11,7 @@
     <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
 
     <nav th:replace="fragments/nav :: nav (links=${ {
+        {name:currentUser.getLoginName(), url:'#', active:''},
         {name:'Liste', url:'/customer/all', active:'active'},
         {name:'Auslogen', url:'/logout', active:''}
     }})"></nav>

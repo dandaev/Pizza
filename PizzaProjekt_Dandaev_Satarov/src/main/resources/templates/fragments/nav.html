@@ -14,10 +14,6 @@
 
     <div class="navbar-collapse collapse float-right" id="navbarsExample09" style="">
         <ul class="navbar-nav ml-auto">
-            <li th:if="${currentUser!=null}">
-                <a th:text="${currentUser.getLoginName()}"></a>
-            </li>
-
             <th:block th:each="link : ${links}">
                 <li th:class="${'nav-item ' + link.active}">
                     <a th:class="${'nav-link'}" th:href="@{${link.url}}" th:text="${link.name}"></a>
