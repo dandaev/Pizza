@@ -122,4 +122,7 @@ public class CartIsNotLoggedIn {
             }
         }
     }
+//    public void clear(){
+//        items.clear();
+//    }
 }

@@ -1,11 +1,11 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.validator;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.Validator;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.DeliveryAddressService;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.DeliveryAddressUpdateForm;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form.DeliveryAddressUpdateForm;
 
 @Component
 public class DeliveryAddressUpdateFormValidator implements Validator {

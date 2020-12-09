@@ -12,12 +12,11 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.CartService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.ItemService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
 
-import java.util.List;
 import java.math.BigDecimal;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
-import java.util.stream.Collectors;
 
 @Service
 public class CartServiceImpl implements CartService {
@@ -58,6 +57,7 @@ public class CartServiceImpl implements CartService {
             item = itemService.createItem(item);
             items.put(item.getId(),item);
         }
+        thisCart.setQuantity(thisCart.getQuantity()+item.getQuantity());
         thisCart.setItems(items);
         cartRepository.save(thisCart);
         return thisCart;
@@ -165,6 +165,7 @@ public class CartServiceImpl implements CartService {
             increaseItem.setQuantity(increaseItem.getQuantity()+1);
             itemMap.put(increaseItem.getId(),increaseItem);
             thisCart.setItems(itemMap);
+            thisCart.setQuantity(thisCart.getQuantity()+1);
             itemService.updateItem(increaseItem);
             return cartRepository.save(thisCart);
         }catch (NullPointerException e){
@@ -181,6 +182,7 @@ public class CartServiceImpl implements CartService {
             increaseItem.setQuantity(increaseItem.getQuantity()-1);
             itemMap.put(increaseItem.getId(),increaseItem);
             thisCart.setItems(itemMap);
+            thisCart.setQuantity(thisCart.getQuantity()-1);
             itemService.updateItem(increaseItem);
             return cartRepository.save(thisCart);
         }catch (NullPointerException e){
@@ -207,6 +209,7 @@ public class CartServiceImpl implements CartService {
             Map<String,Item> itemMap = thisCart.getItems();
             itemMap.remove(item.getId());
             thisCart.setItems(itemMap);
+            thisCart.setQuantity(thisCart.getQuantity()-item.getQuantity());
             return cartRepository.save(thisCart);
         }catch (NullPointerException e){
             return null;

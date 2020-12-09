@@ -25,7 +25,10 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(WebSecurity web) throws Exception {
-        web.ignoring().antMatchers("/h2-console/**").antMatchers("/console/**");;
+        web.ignoring()
+                .antMatchers("/h2-console/**")
+                .antMatchers("/console/**")
+                .antMatchers("/resources/**");;
     }
 
     @Override
@@ -34,7 +37,6 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         http
                 .authorizeRequests()
                 .antMatchers("/login/**").permitAll()
-                .antMatchers("/css/**","/img/**").permitAll()
                 .antMatchers("/register").permitAll()
                 .antMatchers("/customer/**").hasAuthority("ADMIN")
 //                .antMatchers(HttpMethod.POST,"/order/**").hasAuthority("USER")
@@ -57,6 +59,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
                 .rememberMe()
         ;
     }
+
+
 
     @Override
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {

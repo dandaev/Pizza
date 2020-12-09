@@ -13,14 +13,17 @@ public class OrderedItem extends BaseEntity<String> {
     private Pizza pizza;
     private int quantity;
     private PizzaSize size;
+    @ManyToOne
+    private Customer userId;
 
     public OrderedItem() {
     }
 
-    public OrderedItem(Pizza pizza, int quantity, PizzaSize size) {
+    public OrderedItem(Pizza pizza, int quantity, PizzaSize size, Customer userId) {
         this.pizza = pizza;
         this.quantity = quantity;
         this.size = size;
+        this.userId = userId;
     }
 
     public Pizza getPizza() {
@@ -45,5 +48,13 @@ public class OrderedItem extends BaseEntity<String> {
 
     public void setSize(PizzaSize size) {
         this.size = size;
+    }
+
+    public Customer getUserId() {
+        return userId;
+    }
+
+    public void setUserId(Customer userId) {
+        this.userId = userId;
     }
 }

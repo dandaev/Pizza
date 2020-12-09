@@ -9,10 +9,10 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.DeliveryAddres
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.DeliveryAddressService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.DeliveryAddressCreateForm;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.DeliveryAddressUpdateForm;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator.DeliveryAddressCreateFormValidator;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator.DeliveryAddressUpdateFormValidator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form.DeliveryAddressCreateForm;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form.DeliveryAddressUpdateForm;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.validator.DeliveryAddressCreateFormValidator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.validator.DeliveryAddressUpdateFormValidator;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;

@@ -9,6 +9,7 @@ import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.CurrentUserUtil;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.CurrentUser;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.Role;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.CartIsNotLoggedIn;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
@@ -41,6 +42,9 @@ public class WarenCorbController {
         try {
             CurrentUser currentUser = (CurrentUser) model.asMap().get("currentUser");
             if (currentUser != null) {
+                if (currentUser.getRole()== Role.ADMIN){
+                    return "redirect:/customer/all";
+                }
                 CustomerDto customerDto = customerService.getCustomerById(currentUser.getCustomerId());
                 model.addAttribute("currentCustommer", customerDto);
                 model.addAttribute("items", cartService.getListOfItems(currentUser.getCustomerId()));

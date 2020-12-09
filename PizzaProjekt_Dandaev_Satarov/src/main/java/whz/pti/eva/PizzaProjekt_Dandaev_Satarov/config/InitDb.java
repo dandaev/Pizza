@@ -92,7 +92,9 @@ public class InitDb {
         klopp = customerService.create(klopp);
 
         UserDto samDto = new UserDto();
-        samDto.setCustomerDto(sam);
+        samDto.setLoginName("samsmith");
+        samDto.setPasswordHash(passwordEncoder.encode("12345"));
+//        samDto.setCustomerDto(sam);
         samDto.setRole(Role.ADMIN);
         userService.create(samDto);
 

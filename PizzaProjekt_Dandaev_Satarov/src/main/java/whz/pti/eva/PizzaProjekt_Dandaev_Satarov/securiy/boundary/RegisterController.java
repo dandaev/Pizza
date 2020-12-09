@@ -5,6 +5,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,18 +15,17 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.CustomerService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.dto.CustomerDto;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form.CustomerCreateForm;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.validator.CustomerCreateFormValidator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form.CustomerCreateForm;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.validator.CustomerCreateFormValidator;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.CurrentUser;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.domain.Role;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.UserService;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.securiy.service.dto.UserDto;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.boundary.HomeController;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Cart;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.CartIsNotLoggedIn;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Item;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.CartService;
 
-import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 import java.util.HashMap;
@@ -57,7 +57,11 @@ public class RegisterController {
     }
 
     @GetMapping("/register")
-    public String getRegisterPage() {
+    public String getRegisterPage(Model model) {
+        CurrentUser currentUser = (CurrentUser) model.asMap().get("currentUser");
+        if (currentUser != null) {
+            return "redirect:/";
+        }
         //
         return "register";
     }
@@ -67,7 +71,7 @@ public class RegisterController {
             @Valid @ModelAttribute("customerCreateForm") CustomerCreateForm form,
             BindingResult bindingResult,
             RedirectAttributes redirectAttributes,
-            HttpServletRequest request
+            Model model
     ){
         if (bindingResult.hasErrors()) {
             redirectAttributes.addAttribute("errors",bindingResult.getAllErrors().toString());
@@ -94,6 +98,7 @@ public class RegisterController {
             for (Item item:cartIsNotLoggedIn.getItems()){
                 cartService.addItemToCart(customerDto.getId(),item);
             }
+            cartIsNotLoggedIn.getItems().clear();
         }
         return "redirect:/login";
     }

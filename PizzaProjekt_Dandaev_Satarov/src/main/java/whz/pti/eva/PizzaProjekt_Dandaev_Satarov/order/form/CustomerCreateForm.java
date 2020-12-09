@@ -1,4 +1,4 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;

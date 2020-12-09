@@ -1,10 +1,12 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.service.form;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form;
 
 import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
 
-public class DeliveryAddressCreateForm {
+public class DeliveryAddressUpdateForm {
+    @NotNull
+    private String id;
     @NotNull
     @NotEmpty
     @Size(min = 2, max = 64)
@@ -21,8 +23,14 @@ public class DeliveryAddressCreateForm {
     @NotEmpty
     @Size(min = 5, max = 12)
     private String postalCode;
-    @NotNull
-    private String customerId;
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id;
+    }
 
     public String getStreet() {
         return street;
@@ -54,13 +62,5 @@ public class DeliveryAddressCreateForm {
 
     public void setPostalCode(String postalCode) {
         this.postalCode = postalCode;
-    }
-
-    public String getCustomerId() {
-        return customerId;
-    }
-
-    public void setCustomerId(String customerId) {
-        this.customerId = customerId;
     }
 }
