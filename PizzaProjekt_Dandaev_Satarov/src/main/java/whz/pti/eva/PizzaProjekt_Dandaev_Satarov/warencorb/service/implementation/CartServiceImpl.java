@@ -83,24 +83,12 @@ public class CartServiceImpl implements CartService {
                 switch (item.getSize()) {
                     case Small:
                         commonPrice = commonPrice.add(pizza.getPriceSmall().multiply(new BigDecimal(item.getQuantity())));
-                        LOGGER.info("Warencorb: Small Pizza: " + pizza.getName()
-                                + " Price " + pizza.getPriceSmall()
-                                + " Count " + item.getQuantity()
-                                + " Common price " + commonPrice);
                         break;
                     case Large:
                         commonPrice = commonPrice.add(pizza.getPriceLarge().multiply(new BigDecimal(item.getQuantity())));
-                        LOGGER.info("Warencorb: Large Pizza: " + pizza.getName()
-                                + " Price " + pizza.getPriceLarge()
-                                + " Count " + item.getQuantity()
-                                + " Common price " + commonPrice);
                         break;
                     case Medium:
                         commonPrice = commonPrice.add(pizza.getPriceMedium().multiply(new BigDecimal(item.getQuantity())));
-                        LOGGER.info("Warencorb: Medium Pizza: " + pizza.getName()
-                                + " Price " + pizza.getPriceMedium()
-                                + " Count " + item.getQuantity()
-                                + " Common price " + commonPrice);
                         break;
                 }
             }

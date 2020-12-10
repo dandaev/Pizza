@@ -54,16 +54,16 @@ public class DeliveryAddressServiceImpl implements DeliveryAddressService {
     }
 
     @Override
-    public DeliveryAddressDto create(DeliveryAddressDto deliveryAddressDto) {
+    public DeliveryAddress create(DeliveryAddressDto deliveryAddressDto) {
         DeliveryAddress deliveryAddress = fromDto(deliveryAddressDto);
-        return toDto(deliveryAddressRepository.save(deliveryAddress));
+        return deliveryAddressRepository.save(deliveryAddress);
     }
 
     @Override
-    public DeliveryAddressDto update(DeliveryAddressDto deliveryAddressDto) {
+    public DeliveryAddress update(DeliveryAddressDto deliveryAddressDto) {
         if (existsById(deliveryAddressDto.getId())) {
             DeliveryAddress deliveryAddress = deliveryAddressRepository.save(fromDto(deliveryAddressDto));
-            return toDto(deliveryAddress);
+            return deliveryAddress;
         } else {
             return null;
         }

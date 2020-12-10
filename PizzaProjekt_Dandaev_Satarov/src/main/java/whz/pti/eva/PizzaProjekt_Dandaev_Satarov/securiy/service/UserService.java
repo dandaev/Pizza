@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Optional;
 
 public interface UserService {
-    UserDto getUserById(String id);
+    User getUserById(String id);
     Optional<User> getUserByLoginName(String loginName);
     UserDto getUserByCustomerId(String id);
     boolean existsByLoginName(String loginName);

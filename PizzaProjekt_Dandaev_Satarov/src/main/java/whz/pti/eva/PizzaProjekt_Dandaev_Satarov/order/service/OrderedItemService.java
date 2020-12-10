@@ -11,9 +11,9 @@ public interface OrderedItemService {
 
 
     OrderedItem getItemById(String id);
-    List<OrderedItem> getItemListByPizzaId(String pizzaId);
 
-    boolean updateItem(OrderedItem item);
+
+    OrderedItem updateItem(OrderedItem item,OrderedItem updatedItem);
 
     OrderedItem deleteItemById(String id);
 }

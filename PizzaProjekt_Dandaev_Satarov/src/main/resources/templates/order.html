@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Bestellung</title>
+    <head th:include="fragments/header :: head"></head>
+</head>
+<body>
+<div class="container">
+    <h5 class="text-center mt-1">hallo :: was kann ich für dich tun?</h5>
+    <nav th:replace="fragments/nav :: nav (links=${ {
+            {name:currentUser.getLoginName(), url:'/', active:''},
+            {name:'Auswahl', url:'/', active:''},
+            {name:'Warencorb', url:'/warencorb', active:''},
+            {name:'Auslogen', url:'/logout', active:''}
+        }})"></nav>
+    <br>
+    <div class="row">
+        <div class="col-md-8">
+            <div th:if="${ordered.getDeliveryAddress()!=null}" class="card">
+                <div class="card-body">
+                    <h5 class="card-title"
+                        th:text="${ordered.getUserId().getFirstName()+' '+ ordered.getUserId().getLastName()}"></h5>
+                    <h6 class="text-muted"
+                        th:text="${ordered.getDeliveryAddress().getStreet()+' '+ordered.getDeliveryAddress().getHouseNumber()}"></h6>
+                    <h6 class="text-muted"
+                        th:text="${ordered.getDeliveryAddress().getPostalCode()+' '+ordered.getDeliveryAddress().getTown()}"></h6>
+                </div>
+            </div>
+            <br>
+            <h3>Addresse wählen</h3>
+            <br>
+            <div class="row">
+                <li class="list-group-item" th:if="${addresses.isEmpty()}">
+                    <h5 class="text-center">noch keine Adresse</h5>
+                </li>
+                <div class="col-md-6" th:each="address : ${addresses}">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <form method="post" th:action="@{/deliveryaddressupdate}"
+                                      th:object="${deliveryAddressUpdateForm}">
+                                    <input type="hidden" name="id" th:value="${address.getId()}">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-9">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Street"
+                                                   name="street" th:value="${address.getStreet()}"/>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <input type="text" class="form-control form-control-sm" placeholder="House"
+                                                   name="houseNumber" th:value="${address.getHouseNumber()}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Town"
+                                                   name="town" th:value="${address.getTown()}"/>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Plz"
+                                                   name="postalCode" th:value="${address.getPostalCode()}"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-group row">
+                                        <div class="col-md-12">
+                                            <button class="btn btn-primary btn-block btn-sm" type="submit">Diese Adresse
+                                                wählen
+                                            </button>
+                                        </div>
+                                    </div>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                </div>
+                <br>
+                <div class="col-md-6">
+                    <div class="card">
+                        <ul class="list-group list-group-flush">
+                            <li class="list-group-item">
+                                <form method="post" th:action="@{/deliveryaddresscreate}"
+                                      th:object="${deliveryAddressCreateForm}">
+                                    <div class="form-row">
+                                        <div class="form-group col-md-9">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Street"
+                                                   name="street"/>
+                                        </div>
+                                        <div class="form-group col-md-3">
+                                            <input type="text" class="form-control form-control-sm" placeholder="House"
+                                                   name="houseNumber"/>
+                                        </div>
+                                    </div>
+                                    <div class="form-row">
+                                        <div class="form-group col-md-8">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Town"
+                                                   name="town"/>
+                                        </div>
+                                        <div class="form-group col-md-4">
+                                            <input type="text" class="form-control form-control-sm" placeholder="Plz"
+                                                   name="postalCode"/>
+                                        </div>
+                                    </div>
+                                    <input type="hidden" name="customerId" th:value="${ordered.getUserId().getId()}">
+                                    <button class="btn btn-success btn-block" type="submit">neue Adresse hinzufügen
+                                    </button>
+                                </form>
+                            </li>
+                        </ul>
+                    </div>
+                    <br>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-header">
+                    <h4 class="card-title">Kasse</h4>
+                </div>
+                <ul class="list-group list-group-flush">
+                    <li class="list-group-item">
+                        <div class="row">
+                            <div class="col-md-8"><span class="text-muted" th:text="${count}+' Arikels' "></span>
+                            </div>
+                            <div class="col-md-4"><span class="text-muted" th:text="${commonPrice}+'€' "></span></div>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="row">
+                            <div class="col-md-8"><span class="text-muted"> Lieferung </span></div>
+                            <div class="col-md-4"><span class="text-muted">0,0€</span></div>
+                        </div>
+                    </li>
+                    <li class="list-group-item table-info">
+                        <div class="row">
+                            <div class="col-md-8"><h5>Common Price:</h5></div>
+                            <div class="col-md-4"><h5 class="text-center" th:text="${commonPrice}+'€'"></div>
+                        </div>
+                    </li>
+                    <div class="card-body">
+                        <a href="#" class="btn btn-dark btn-block">Bestellen Sie</a>
+                    </div>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+<footer th:replace="fragments/footer :: footer"></footer>
+</body>
+</body>
+</html>

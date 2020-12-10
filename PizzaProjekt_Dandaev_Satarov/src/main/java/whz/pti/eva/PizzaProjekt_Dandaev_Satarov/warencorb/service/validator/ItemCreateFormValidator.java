@@ -7,7 +7,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.common.Validator;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.ItemService;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.form.ItemCreateForm;
+import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form.ItemCreateForm;
 
 @Component
 public class ItemCreateFormValidator implements Validator {

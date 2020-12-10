@@ -1,4 +1,4 @@
-package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.form;
+package whz.pti.eva.PizzaProjekt_Dandaev_Satarov.order.form;
 
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.Pizza;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.domain.PizzaSize;

@@ -12,8 +12,8 @@ public interface DeliveryAddressService {
     List<DeliveryAddressDto> getDeliveryAddressesByCustomer(CustomerDto customerDto);
     boolean existsById(String id);
 
-    DeliveryAddressDto create(DeliveryAddressDto deliveryAddressDto);
-    DeliveryAddressDto update(DeliveryAddressDto deliveryAddressDto);
+    DeliveryAddress create(DeliveryAddressDto deliveryAddressDto);
+    DeliveryAddress update(DeliveryAddressDto deliveryAddressDto);
     void delete(DeliveryAddressDto deliveryAddressDto);
 
     DeliveryAddressDto toDto(DeliveryAddress deliveryAddress);

@@ -79,7 +79,7 @@
             <div class="card position-sticky">
                 <div class="card-body">
                     <h3 th:text="${'GesamtPreis: '+ commonPreis + '€'}">Gesamtpreis</h3>
-                    <a href="#" class="btn btn-success btn-block">Bezahlen</a>
+                    <a th:href="@{/order}" class="btn btn-success btn-block">Bezahlen</a>
                 </div>
             </div>
         </div>

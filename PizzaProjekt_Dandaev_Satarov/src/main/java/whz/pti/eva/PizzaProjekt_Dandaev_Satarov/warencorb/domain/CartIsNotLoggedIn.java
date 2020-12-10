@@ -5,7 +5,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Component;
 import org.springframework.web.context.annotation.SessionScope;
 import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.PizzaService;
-import whz.pti.eva.PizzaProjekt_Dandaev_Satarov.warencorb.service.form.ItemCreateForm;
 
 import java.math.BigDecimal;
 import java.util.ArrayList;
