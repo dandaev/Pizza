@@ -28,7 +28,7 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
         web.ignoring()
                 .antMatchers("/h2-console/**")
                 .antMatchers("/console/**")
-                .antMatchers("/resources/**");;
+                .antMatchers("/resources/**");
     }
 
     @Override

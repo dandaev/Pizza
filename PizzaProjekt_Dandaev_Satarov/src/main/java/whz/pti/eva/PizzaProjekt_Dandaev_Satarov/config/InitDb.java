@@ -65,85 +65,71 @@ public class InitDb {
         pizzaService.addPizza(napoli);
         pizzaService.addPizza(peperoni);
 
-//        CustomerDto admin = new CustomerDto();
-//        admin.setId("21rsfjd73-adminidns-89nfer7fh-f4uiu4383");
-//        admin.setFirstName("Admin");
-//        admin.setLastName("Adminovic");
-//        admin.setLoginName("admin");
-//        admin.setPasswordHash(passwordEncoder.encode("admin"));
-//
-//        UserDto adminDto = new UserDto();
-//        adminDto.setCustomerDto(admin);
-//        adminDto.setRole(Role.USER);
-//        userService.create(adminDto);
+        UserDto admin = new UserDto();
+        admin.setLoginName("admin");
+        admin.setPasswordHash(passwordEncoder.encode("a1"));
+        admin.setRole(Role.ADMIN);
+        userService.create(admin);
 
-        CustomerDto sam = new CustomerDto();
-        sam.setFirstName("Sam");
-        sam.setLastName("Smith");
-        sam.setLoginName("samsmith");
-        sam.setPasswordHash(passwordEncoder.encode("12345678"));
-        sam = customerService.create(sam);
+        CustomerDto bnutz = new CustomerDto();
+        bnutz.setFirstName("Todd");
+        bnutz.setLastName("King");
+        bnutz.setLoginName("bnutz");
+        bnutz.setPasswordHash(passwordEncoder.encode("n1"));
+        bnutz = customerService.create(bnutz);
+        //
+        UserDto buser = new UserDto();
+        buser.setCustomerDto(bnutz);
+        buser.setRole(Role.USER);
+        userService.create(buser);
+        //
+        Cart bnutzCart = new Cart();
+        bnutzCart.setItems(new HashMap<>());
+        bnutzCart.setQuantity(0);
+        bnutzCart.setUser(customerService.getCustomerNotDtoById(bnutz.getId()));
+        cartService.create(bnutzCart);
 
-        CustomerDto klopp = new CustomerDto();
-        klopp.setFirstName("Jurgen");
-        klopp.setLastName("Klopp");
-        klopp.setLoginName("jurgenklopp");
-        klopp.setPasswordHash(passwordEncoder.encode("jurgenklopp"));
-        klopp = customerService.create(klopp);
-
-        UserDto samDto = new UserDto();
-        samDto.setLoginName("samsmith");
-        samDto.setPasswordHash(passwordEncoder.encode("12345"));
-//        samDto.setCustomerDto(sam);
-        samDto.setRole(Role.ADMIN);
-        userService.create(samDto);
-
-        UserDto kloppUser = new UserDto();
-        kloppUser.setCustomerDto(klopp);
-        kloppUser.setRole(Role.USER);
-        User u = userService.create(kloppUser);
-
-        Cart kloppCart = new Cart();
-        kloppCart.setItems(new HashMap<>());
-        kloppCart.setQuantity(0);
-//        Customer klop = new Customer(klopp.getFirstName(),klopp.getLastName(),klopp.getLoginName(),klopp.getPasswordHash());
-//        klop.setId(klopp.getId());
-        kloppCart.setUser(customerService.getCustomerNotDtoById(klopp.getId()));
-        cartService.create(kloppCart);
-
-        Item item = new Item(margarita,2, PizzaSize.Large);
-        Item item1 = new Item(spinat,2, PizzaSize.Large);
-
-        cartService.addItemToCart(klopp.getId(),item);
-        cartService.addItemToCart(klopp.getId(),item1);
+        CustomerDto cnutz = new CustomerDto();
+        cnutz.setFirstName("Elin");
+        cnutz.setLastName("Harrison");
+        cnutz.setLoginName("cnutz");
+        cnutz.setPasswordHash(passwordEncoder.encode("n2"));
+        cnutz = customerService.create(cnutz);
+        //
+        UserDto cuser = new UserDto();
+        cuser.setCustomerDto(cnutz);
+        cuser.setRole(Role.USER);
+        userService.create(cuser);
+        //
+        Cart cnutzCart = new Cart();
+        cnutzCart.setItems(new HashMap<>());
+        cnutzCart.setQuantity(0);
+        cnutzCart.setUser(customerService.getCustomerNotDtoById(cnutz.getId()));
+        cartService.create(cnutzCart);
 
 
         DeliveryAddressDto da = new DeliveryAddressDto();
-        da.setStreet("Innere Schneeberger Str");
-        da.setHouseNumber("23");
-        da.setTown("Zwickau");
-        da.setPostalCode("08056");
-        da.setCustomer(
-                customerService.getAllCustomers().get(0)
-        );
-        DeliveryAddressDto da2 = new DeliveryAddressDto();
-        da2.setStreet("Marien Str");
-        da2.setHouseNumber("14");
-        da2.setTown("Dresden");
-        da2.setPostalCode("04512");
-        da2.setCustomer(
-                customerService.getAllCustomers().get(0)
-        );
-        DeliveryAddressDto da3 = new DeliveryAddressDto();
-        da3.setStreet("Katharinen Str");
-        da3.setHouseNumber("109");
-        da3.setTown("Dortmund");
-        da3.setPostalCode("00184");
-        da3.setCustomer(
-                customerService.getAllCustomers().get(1)
-        );
+        da.setStreet("Koepenicker Str");
+        da.setHouseNumber("31");
+        da.setTown("Siesbach");
+        da.setPostalCode("55767");
+        da.setCustomer(bnutz);
         deliveryAddressService.create(da);
+
+        DeliveryAddressDto da2 = new DeliveryAddressDto();
+        da2.setStreet("Mohrenstrasse");
+        da2.setHouseNumber("9");
+        da2.setTown("Schopfloch");
+        da2.setPostalCode("91626");
+        da2.setCustomer(bnutz);
         deliveryAddressService.create(da2);
+
+        DeliveryAddressDto da3 = new DeliveryAddressDto();
+        da3.setStreet("Anhalter Strasse");
+        da3.setHouseNumber("109");
+        da3.setTown("Antdorf");
+        da3.setPostalCode("67759");
+        da3.setCustomer(cnutz);
         deliveryAddressService.create(da3);
     }
 }

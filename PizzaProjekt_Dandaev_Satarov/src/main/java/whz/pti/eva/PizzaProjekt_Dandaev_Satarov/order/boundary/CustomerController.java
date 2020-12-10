@@ -126,7 +126,9 @@ public class CustomerController {
         customer.setFirstName(form.getFirstName());
         customer.setLastName(form.getLastName());
         customer.setLoginName(form.getLoginName());
-        customer.setPasswordHash(passwordEncoder.encode(form.getPasswordNew()));
+        if (!form.getPasswordNew().equals(customer.getPasswordHash())) {
+            customer.setPasswordHash(passwordEncoder.encode(form.getPasswordNew()));
+        }
         customer = customerService.update(customer);
 
         UserDto userDto = userService.getUserByCustomerId(customer.getId());

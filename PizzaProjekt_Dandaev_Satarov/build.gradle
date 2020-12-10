@@ -26,6 +26,9 @@ dependencies {
 	compile('javax.xml.bind:jaxb-api:2.3.0')
 	testCompile group: 'org.hamcrest', name: 'hamcrest', version: '2.1'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
+
+	testCompile group: 'org.springframework.security', name: 'spring-security-test', version: '5.4.2'
+
 }
 
 test {

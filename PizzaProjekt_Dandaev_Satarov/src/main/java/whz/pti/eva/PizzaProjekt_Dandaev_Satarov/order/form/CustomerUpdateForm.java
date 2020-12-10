@@ -9,23 +9,23 @@ public class CustomerUpdateForm {
     private String id;
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 18)
+    @Size(min = 1, max = 18)
     private String firstName;
     @NotNull
     @NotEmpty
-    @Size(min = 2, max = 18)
+    @Size(min = 1, max = 18)
     private String lastName;
     @NotNull
     @NotEmpty
-    @Size(min = 4, max = 18)
+    @Size(min = 1, max = 18)
     private String loginName;
     @NotNull
     @NotEmpty
-    @Size(min = 4)
+    @Size(min = 1)
     private String passwordNew;
     @NotNull
     @NotEmpty
-    @Size(min = 4)
+    @Size(min = 1)
     private String passwordConfirm;
 
     public String getId() {
